@@ -43,6 +43,14 @@ function checkupdate() {
     fi
     echo "+ Mise à jour du robot non disponsible." ; return 1
 }
+function cancelupdate() {
+    sleep 1; echo "+ Suppression de la mise à jour.";
+    # git reset --hard) > /dev/null
+}
+function applyupdate() {
+    sleep 1; echo "- Mise à jour en cours...";
+    git merge origin/master > /dev/null 2>&1
+}
 ######################################################################################
 case "$1" in
       stop) robotstop ;;
