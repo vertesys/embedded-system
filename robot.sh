@@ -72,10 +72,12 @@ function autoupdate() {
 }
 ######################################################################################
 case "$1" in
-      stop) robotstop ;;
-     start) robotstart ;;
-    status) robotstatus ;;
-         *) robotusage ;;
+       stop) robotstop ;;
+       auto) autoupdate ;;
+      start) robotstart ;;
+     status) robotstatus ;;
+    restart) robotstop; robotstart ;;
+          *) robotusage ;;
 esac
 ######################################################################################
 
