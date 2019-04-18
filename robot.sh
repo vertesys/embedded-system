@@ -1,5 +1,7 @@
 #!/bin/bash
 ######################################################################################
+sha_1_commit_ok=~/.sha-1-commit-ok ; touch $sha_1_commit_ok
+sha_1_commit_no=~/.sha-1-commit-no ; touch $sha_1_commit_no
 filename="programme.py"
 ######################################################################################
 function robotusage() {
@@ -19,8 +21,10 @@ function robotstart() {
         $(nohup python $filename > /dev/null 2>&1 &) ; sleep 1
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
+            echo $(git rev-parse HEAD) > $sha_1_commit_ok
         else 
             echo "- Le robot n'a pas pu être démarré."
+            echo $(git rev-parse HEAD) > $sha_1_commit_no
         fi
     else
         sleep 1 ; echo "- Le robot a été déjà démarré."
@@ -39,13 +43,15 @@ function checkupdate() {
     git fetch origin > /dev/null 2>&1
     reslog=$(git log HEAD..origin/master --oneline) > /dev/null
     if [ "${reslog}" != "" ] ; then
-        echo "+ Mise à jour du robot disponible." ; return 0
+        if [ "$(git rev-parse HEAD)" != "$(cat $sha_1_commit_no)" ] ; then
+            echo "+ Mise à jour du robot disponible." ; return 0
+        fi
     fi
     echo "+ Mise à jour du robot non disponsible." ; return 1
 }
 function cancelupdate() {
     sleep 1; echo "+ Suppression de la mise à jour.";
-    # git reset --hard) > /dev/null
+    (cat $sha_1_commit_ok | git reset --hard) > /dev/null
 }
 function applyupdate() {
     sleep 1; echo "- Mise à jour en cours...";
@@ -80,4 +86,3 @@ case "$1" in
           *) robotusage ;;
 esac
 ######################################################################################
-
