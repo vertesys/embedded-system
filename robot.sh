@@ -52,6 +52,25 @@ function applyupdate() {
     git merge origin/master > /dev/null 2>&1
 }
 ######################################################################################
+function autoupdate() {
+    if robotstatus > /dev/null ; then 
+        robotstop > /dev/null; robotstart; 
+    fi
+    while true ; do
+        if checkupdate ; then
+            echo -n "  "; robotstop 
+            echo -n "  "; applyupdate
+            echo -n "  "; robotstart
+            sleep 1;
+            if ! robotstatus > /dev/null ; then
+                echo -n "  "; cancelupdate
+                echo -n "    "; robotstart
+            fi
+        fi
+        sleep 3
+    done   
+}
+######################################################################################
 case "$1" in
       stop) robotstop ;;
      start) robotstart ;;
