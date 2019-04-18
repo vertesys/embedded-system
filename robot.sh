@@ -3,7 +3,7 @@
 filename="programme.py"
 ######################################################################################
 function robotusage() {
-    echo -e "Usage :\n   $0 start|stop|restart|status\n" >&2 ; exit 0
+    echo -e "Usage :\n   $0 auto|start|stop|restart|status\n" >&2 ; exit 0
 } 
 ######################################################################################
 function robotstatus() {
