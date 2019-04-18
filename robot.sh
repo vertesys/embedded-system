@@ -35,6 +35,15 @@ function robotstop() {
     fi
 }
 ######################################################################################
+function checkupdate() {
+    git fetch origin > /dev/null 2>&1
+    reslog=$(git log HEAD..origin/master --oneline) > /dev/null
+    if [ "${reslog}" != "" ] ; then
+        echo "+ Mise à jour du robot disponible." ; return 0
+    fi
+    echo "+ Mise à jour du robot non disponsible." ; return 1
+}
+######################################################################################
 case "$1" in
       stop) robotstop ;;
      start) robotstart ;;
