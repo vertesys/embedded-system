@@ -9,3 +9,4 @@ while (True):
     time.sleep(1)
 
 # Change de code
+error
