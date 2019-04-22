@@ -1,19 +1,11 @@
 # Playbook installation d'un robot + configuration + monitoring.
 
 # Clone le dépôt du robot dans le dépertoire de deploy.
-- name: "CLONE ROBOT REPOSITORY"
-  hosts: "raspberry"
-  roles:
-    - role: "Roles/robotgitlab"
-
-# Installer tmux et ajouter ma commande robot.
-- name: "INSTALL TMUX & SETUP IT"
-  hosts: "raspberry"
-  roles:
-    - role: "roles/robottmux"
+- import_playbook: playbooks/install-robot.yml
 
 # Start the robot on boot os by adding a cron job.
-- name: "ADD CRON JOB FOR THE ROBOT"
-  hosts: "raspberry"
-  roles:
-    - role: "Roles/robotcron"
+- import_playbook: playbooks/install-cron.yml
+
+# Installer tmux et ajouter ma commande robot.
+- import_playbook: playbooks/install-tmux.yml
+
