@@ -43,3 +43,14 @@
     line: "{{ username }}\tALL=(ALL:ALL) NOPASSWD:ALL"
     regexp: "^{{ username }} "
   # when: grep_deploy_sudoers.stdout == "0"
+
+ # - name: "Disable root login from ssh"
+ #  lineinfile:
+ #    dest: "/etc/ssh/sshd_config"
+ #    regexp: "^PermitRootLogin"
+ #    line: "PermitRootLogin no"
+ #    state: "present"
+ #    backup: "yes"
+ #  notify:
+ #    - restart ssh
+ 
