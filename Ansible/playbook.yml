@@ -6,6 +6,12 @@
   roles:
     - role: "Roles/robotgitlab"
 
+# Installer tmux et ajouter ma commande robot.
+- name: "INSTALL TMUX & SETUP IT"
+  hosts: "raspberry"
+  roles:
+    - role: "roles/robottmux"
+
 # Start the robot on boot os by adding a cron job.
 - name: "ADD CRON JOB FOR THE ROBOT"
   hosts: "raspberry"
