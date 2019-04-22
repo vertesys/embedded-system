@@ -39,7 +39,8 @@ function robotstart() {
 }
 function robotstop() {
     if robotstatus > /dev/null ; then
-        pkill -f "$dorectory/$script_py" > /dev/null 2>&1 ; sleep 1
+        pids=$(ps aux | grep -i python.*$script_py | grep -v grep | awk '{print $2}')
+        (echo $pids | xargs kill -9 $1) > /dev/null 2>&1 ; sleep 1
         echo "- Le robot a été arrêté."
     else
         sleep 1 ; echo "- Le robot a été déjà arrêté."
