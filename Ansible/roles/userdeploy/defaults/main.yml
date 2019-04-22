@@ -10,3 +10,7 @@ users:
      groups: "{{ username }}"
      shell: "/bin/bash"
      comment: "Deploy"
+
+# Public key for ssh connection.
+public_keys:
+  - ~/.ssh/id_rsa.robot.pub

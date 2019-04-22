@@ -13,3 +13,33 @@
     comment: "{{ item.comment }}"
     shell: "{{ item.shell }}"
   with_items: "{{ users }}"
+
+# Copy ssh public key to user deploy.
+- name: "Setup authorized keys"
+  authorized_key:
+    key: "{{ item }}"
+    user: "{{ username }}"
+    state: "present"
+  with_file: "{{ public_keys }}"
+
+# Allow user to run command sudo without a password.
+- name: "Delete deploy in sudoers"
+  lineinfile:
+    dest: "/etc/sudoers"
+    regexp: '^{{ username }}(\s+)'
+    state: "absent"
+
+# Check if user is in sudoers, return 0 -> false and 1 -> true.
+# - name: "Check if user is already sudo without password"
+#   shell: 'grep "^{{ username }}[[:blank:]]" /etc/sudoers -c || true'
+#   register: grep_deploy_sudoers
+
+# Allow user to run command sudo without a password.
+- name: "Add deploy to sudo without a password"
+  lineinfile:
+    dest: "/etc/sudoers"
+    state: "present"
+    insertafter : "^root"
+    line: "{{ username }}\tALL=(ALL:ALL) NOPASSWD:ALL"
+    regexp: "^{{ username }} "
+  # when: grep_deploy_sudoers.stdout == "0"
