@@ -16,7 +16,7 @@ function robotusage() {
     echo -e "Usage :\n   $0 auto|start|stop|restart|status\n" >&2 ; exit 0
 }
 function robotstatus() {
-    if (pgrep -f "$script_py") > /dev/null ; then
+    if (ps aux | grep -i "python.*$script_py" | grep -v grep) > /dev/null ; then
         echo "- Le robot est en fonctionnement." ; return 0
     else
         echo "- Le robot n'est pas en fonctionnement." ; return 1
