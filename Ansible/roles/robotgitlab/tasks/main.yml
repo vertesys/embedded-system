@@ -20,3 +20,34 @@
     dest: /home/deploy/robot
     version: master
   become: no
+
+# -------------------------------------------------------------------------
+# Clone the public repository for the embedded system.
+#- name: Clone the public repository for the embedded system
+#  git:
+#    repo: http://{{repository}}
+#    dest: /home/deploy/robot
+#    version: master
+
+# Copy SSH private key file to clone private repository.
+#- name: Configure SSH to use ansible key for 139.99.202.52
+#  template: 
+#    src: templates/ssh_config.j2
+#    dest: /home/deploy/.ssh/config
+#    mode: 0644
+
+# Copy SSH private key file for private repository.
+#- name: Copy SSH private key file for private repository
+#  copy: 
+#    src: files/id_rsa.gitlab
+#    dest: /home/deploy/.ssh/id_rsa.gitlab
+#    mode: 0600
+
+# NOT WORKING YET - Clone the private repository for the embedded system.
+#- name: Clone the private repository for the embedded system
+#  git:
+#    repo: ssh:git@{{repository}}
+#    key_file: /home/deploy/.ssh/id_rsa.gitlab
+#    dest: /home/deploy/.robot
+#    accept_hostkey: yes
+# -------------------------------------------------------------------------
