@@ -62,8 +62,8 @@ function cancelupdate() {
     git -C $directory reset --hard $(cat $sha_1_robot_works) > /dev/null 2>&1
 }
 function applyupdate() {
-    sleep 1; echo "- Application de la mise à jour.";
-    git -C $directory merge origin/master > /dev/null 2>&1
+    sleep 2; echo "- Application de la mise à jour.";
+    git -C $directory pull > /dev/null 2>&1
 }
 ######################################################################################
 function autoupdate() {
