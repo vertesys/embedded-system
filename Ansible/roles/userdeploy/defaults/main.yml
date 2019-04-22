@@ -1,0 +1,12 @@
+# Default user 
+username: "deploy"
+
+# Vars file for users
+user_groups: "{{ username }}"
+
+# Liste des utilisateurs à créer.
+users:
+   - name: "{{ username }}"
+     groups: "{{ username }}"
+     shell: "/bin/bash"
+     comment: "Deploy"
