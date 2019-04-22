@@ -5,7 +5,7 @@
     state : absent
 
 # Activate the robot once at system startup.
-- name: "Activate the robot once at system startup."
+- name: "Activate the robot once at system startup"
   cron:
     name: Activate the robot once at system startup.
     job: "/home/deploy/robot/Robot.sh auto"
