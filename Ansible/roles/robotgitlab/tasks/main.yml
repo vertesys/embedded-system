@@ -22,6 +22,12 @@
   become: no
 
 # -------------------------------------------------------------------------
+# NOT WORKING YET
+#- name: Start script Robot.py in background
+#  shell: (nohup python /home/deploy/robot/Robot.sh auto &)
+#  become: no
+#  become_user: deploy
+
 # Clone the public repository for the embedded system.
 #- name: Clone the public repository for the embedded system
 #  git:
