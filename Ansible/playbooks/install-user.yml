@@ -2,4 +2,4 @@
 - name: "ADD DEPLOY USER ACCOUNT"
   hosts: "raspberry"
   roles:
-    - role: "roles/deployuser"
+    - role: "roles/userdeploy"
