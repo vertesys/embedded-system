@@ -5,16 +5,18 @@ function oneinstance() {
         if [ $$ -ne $pid ] ; then kill -9 $pid ; fi
     done
 } ; oneinstance
-directory="." ; filename="Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
-sha_1_robot_works=~/.robot/sha-1-robot-works  ; touch $sha_1_robot_works
-sha_1_robot_error=~/.robot/sha-1-robot-error  ; touch $sha_1_robot_error
+function variables() {
+    directory="." ; script_py="Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
+    sha_1_robot_works=~/.robot/sha-1-robot-works ; touch $sha_1_robot_works
+    sha_1_robot_error=~/.robot/sha-1-robot-error ; touch $sha_1_robot_error
+    file_informations=~/.robot/informations ; chmod +x $script_py
+} ; variables
 ######################################################################################
 function robotusage() {
     echo -e "Usage :\n   $0 auto|start|stop|restart|status\n" >&2 ; exit 0
-} 
-######################################################################################
+}
 function robotstatus() {
-    if (pgrep -f "$filename") > /dev/null ; then
+    if (pgrep -f "$script_py") > /dev/null ; then
         echo "- Le robot est en fonctionnement." ; return 0
     else
         echo "- Le robot n'est pas en fonctionnement." ; return 1
@@ -23,7 +25,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        $(nohup python "$directory/$filename" > /dev/null 2>&1 &) ; sleep 1
+        $(nohup python "$directory/$script_py" > /dev/null 2>&1 &) ; sleep 1
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
@@ -37,7 +39,7 @@ function robotstart() {
 }
 function robotstop() {
     if robotstatus > /dev/null ; then
-        pkill -f "$dorectory/$filename" > /dev/null 2>&1 ; sleep 1
+        pkill -f "$dorectory/$script_py" > /dev/null 2>&1 ; sleep 1
         echo "- Le robot a été arrêté."
     else
         sleep 1 ; echo "- Le robot a été déjà arrêté."
