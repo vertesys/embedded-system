@@ -1,0 +1,5 @@
+# Clone le dépôt du robot dans le dépertoire de deploy.
+- name: "CLONE ROBOT REPOSITORY"
+  hosts: "raspberry"
+  roles:
+    - role: "Roles/robotgitlab"
