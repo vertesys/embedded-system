@@ -1,0 +1,22 @@
+# Install git package to the latest version.
+- name: Install git package to the latest version
+  apt:
+    name: git
+    state: present
+
+# Delete old robot repository in deploy home directory.
+- name: Delete old robot repository in deploy home directory
+  file:
+    path: "{{item}}"
+    state: absent
+  with_items:
+    - /home/deploy/.robot/*
+    - /home/deploy/robot/*
+
+# Clone the private repository for the embedded system.
+- name: Clone the private repository for the embedded system
+  git:
+    repo: http://{{username}}:{{token}}@{{repository}}
+    dest: /home/deploy/robot
+    version: master
+  become: no
