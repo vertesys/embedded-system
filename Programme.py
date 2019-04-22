@@ -1,11 +1,10 @@
-# Import time for sleep.
-import time, datetime
+# Import os, time and datetime modules.
+import os, time, datetime
 
-# While loop
 while (True):
-    file = open("Time.txt", "w")
-    file.write(datetime.datetime.now().strftime(" %H:%M:%S").join("\n"))
+    file = open(os.path.expanduser("~/.robot/programme.txt"), "w")
+    file.write(datetime.datetime.today().strftime("\tDATE : %d-%m-%Y\n"))
+    file.write(datetime.datetime.now().strftime("\tHOUR : [%H:%M:%S]"))
     file.close()
     time.sleep(1)
 
-# Change de code

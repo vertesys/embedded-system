@@ -1,15 +1,22 @@
 #!/bin/bash
 ######################################################################################
-directory="." ; filename="Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
-sha_1_robot_works=~/.robot/sha-1-robot-works  ; touch $sha_1_robot_works
-sha_1_robot_error=~/.robot/sha-1-robot-error  ; touch $sha_1_robot_error
+function oneinstance() {
+    for pid in $(pgrep -f $(basename "$0")) ; do
+        if [ $$ -ne $pid ] ; then kill -9 $pid ; fi
+    done
+} ; oneinstance
+function variables() {
+    directory="." ; script_py="Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
+    sha_1_robot_works=~/.robot/sha-1-robot-works ; touch $sha_1_robot_works
+    sha_1_robot_error=~/.robot/sha-1-robot-error ; touch $sha_1_robot_error
+    file_informations=~/.robot/informations ; chmod +x $script_py
+} ; variables
 ######################################################################################
 function robotusage() {
     echo -e "Usage :\n   $0 auto|start|stop|restart|status\n" >&2 ; exit 0
-} 
-######################################################################################
+}
 function robotstatus() {
-    if (pgrep -f "$filename") > /dev/null ; then
+    if (ps aux | grep -i "python.*$script_py" | grep -v grep) > /dev/null ; then
         echo "- Le robot est en fonctionnement." ; return 0
     else
         echo "- Le robot n'est pas en fonctionnement." ; return 1
@@ -18,7 +25,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        $(nohup python "$directory/$filename" > /dev/null 2>&1 &) ; sleep 1
+        $(nohup python "$directory/$script_py" > /dev/null 2>&1 &) ; sleep 1
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
@@ -32,7 +39,8 @@ function robotstart() {
 }
 function robotstop() {
     if robotstatus > /dev/null ; then
-        pkill -f "$dorectory/$filename" > /dev/null 2>&1 ; sleep 1
+        pids=$(ps aux | grep -i python.*$script_py | grep -v grep | awk '{print $2}')
+        (echo $pids | xargs kill -9 $1) > /dev/null 2>&1 ; sleep 1
         echo "- Le robot a été arrêté."
     else
         sleep 1 ; echo "- Le robot a été déjà arrêté."
@@ -40,13 +48,10 @@ function robotstop() {
 }
 ######################################################################################
 function checkupdate() {
-    git -C $directory fetch origin > /dev/null 2>&1
-    results=$(git -C $directory log HEAD..origin/master --oneline) > /dev/null 2>&1
-    if [ "${results}" != "" ] ; then
-        if [ "$(cat $sha_1_robot_works)" == "" ] ; then 
-            echo "+ Mise à jour du robot disponible." ; return 0
-        fi
-        if [ "$(git -C $directory rev-parse HEAD)" != "$(cat $sha_1_robot_error)" ] ; then
+    url_remote=$(git -C $directory config --get remote.origin.url)
+    sha_1_last_commit_online=$(git -C $directory ls-remote $url_remote HEAD | cut -f1)
+    if [ "$(git -C $directory rev-parse HEAD)" != "$sha_1_last_commit_online" ] ; then
+        if [ "$sha_1_last_commit_online" != "$(head -n 1 $sha_1_robot_error)" ] ; then
             echo "+ Mise à jour du robot disponible." ; return 0
         fi
     fi
@@ -58,25 +63,30 @@ function cancelupdate() {
 }
 function applyupdate() {
     sleep 1; echo "- Application de la mise à jour.";
-    git -C $directory merge origin/master > /dev/null 2>&1
+    git -C $directory pull > /dev/null 2>&1
 }
 ######################################################################################
 function autoupdate() {
     robotstop > /dev/null ; robotstart | tr - + ;
     while true ; do
+        if ! robotstatus > /dev/null ; then 
+            (cancelupdate ; robotstart) > /dev/null
+        fi
+        echo -n "  " ; robotstatus | tr - + > $file_informations ; sleep 1
         if checkupdate ; then
-            echo -n "  "; robotstop
-            echo -n "  "; applyupdate
-            echo -n "  "; robotstart ; sleep 1
-            if ! robotstatus > /dev/null ; then
-                echo -n "  "; cancelupdate
-                echo -n "    "; robotstart
+            echo -n "  " ; robotstop
+            echo -n "  " ; applyupdate
+            echo -n "  " ; robotstart ; sleep 1
+            if ! robotstatus > /dev/null 2>&1 ; then
+                echo -n "  " ; cancelupdate 
+                echo -n "    " ; robotstart
             fi
         fi
         sleep 3
     done
-}
+} >> $file_informations
 ######################################################################################
+function robotcommands() {
 case "$1" in
        stop) robotstop ;;
        auto) autoupdate ;;
@@ -85,4 +95,5 @@ case "$1" in
     restart) robotstop; robotstart ;;
           *) robotusage ;;
 esac
+} ; robotcommands
 ######################################################################################

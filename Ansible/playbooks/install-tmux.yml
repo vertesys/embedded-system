@@ -1,0 +1,5 @@
+# Installer tmux et ajouter ma commande robot.
+- name: "INSTALL TMUX & SETUP IT"
+  hosts: "raspberry"
+  roles:
+    - role: "roles/robottmux"

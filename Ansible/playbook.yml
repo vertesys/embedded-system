@@ -1,0 +1,11 @@
+# Playbook installation d'un robot + configuration + monitoring.
+
+# Clone le dépôt du robot dans le dépertoire de deploy.
+- import_playbook: playbooks/install-robot.yml
+
+# Start the robot on boot os by adding a cron job.
+- import_playbook: playbooks/install-cron.yml
+
+# Installer tmux et ajouter ma commande robot.
+- import_playbook: playbooks/install-tmux.yml
+
