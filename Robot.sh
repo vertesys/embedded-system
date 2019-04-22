@@ -86,7 +86,6 @@ function autoupdate() {
     done
 } >> $file_informations
 ######################################################################################
-function robotcommands() {
 case "$1" in
        stop) robotstop ;;
        auto) autoupdate ;;
@@ -95,5 +94,4 @@ case "$1" in
     restart) robotstop; robotstart ;;
           *) robotusage ;;
 esac
-} ; robotcommands
 ######################################################################################
