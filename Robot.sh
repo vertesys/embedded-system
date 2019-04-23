@@ -66,9 +66,9 @@ function applyupdate() {
     sleep 1; echo "- Application de la mise à jour.";
     git -C $directory pull > /dev/null 2>&1
 }
+variables
 ######################################################################################
 function autoupdate() {
-    variables ; sleep 1 ;
     (robotstatus | tr - +) > $file_informations ; sleep 1
     if checkupdate ; then
         echo -n "  " ; robotstop
