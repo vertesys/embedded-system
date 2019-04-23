@@ -2,7 +2,7 @@
 
 # Import os, time and datetime modules.
 import os, time, datetime
-m.
+m./
 while (True):
     file = open(os.path.expanduser("~/.robot/programme.txt"), "w")
     file.write(datetime.datetime.today().strftime("\tDATE : %d-%m-%Y\n"))
