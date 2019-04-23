@@ -10,7 +10,8 @@ function variables() {
     directory="." ; script_py="Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
     sha_1_robot_works=~/.robot/sha-1-robot-works ; touch $sha_1_robot_works
     sha_1_robot_error=~/.robot/sha-1-robot-error ; touch $sha_1_robot_error
-    file_informations=~/.robot/informations ; > $file_informations
+    file_informations=~/.robot/informations ; 
+    #> $file_informations
 }
 ######################################################################################
 function robotusage() {
@@ -68,8 +69,7 @@ function applyupdate() {
 }
 ######################################################################################
 function autoupdate() {
-    # variables ; sleep 1 ; 
-    # robotstatus | tr - + > $file_informations ; sleep 1
+    variables ; sleep 1 ; (robotstatus | tr - +) > $file_informations ; sleep 1
     if checkupdate ; then
         echo -n "  " ; robotstop
         echo -n "  " ; applyupdate
