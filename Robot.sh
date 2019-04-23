@@ -10,8 +10,7 @@ function variables() {
     directory="." ; script_py="Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
     sha_1_robot_works=~/.robot/sha-1-robot-works ; touch $sha_1_robot_works
     sha_1_robot_error=~/.robot/sha-1-robot-error ; touch $sha_1_robot_error
-    file_informations=~/.robot/informations ; 
-    #> $file_informations
+    file_informations=~/.robot/informations ; > $file_informations
 }
 ######################################################################################
 function robotusage() {
@@ -52,10 +51,10 @@ function robotstop() {
 function checkupdate() {
     url_remote=$(git -C $directory config --get remote.origin.url)
     sha_1_last_commit_online=$(git -C $directory ls-remote $url_remote HEAD | cut -f1)
-    if [ "$(git -C $directory rev-parse HEAD)" != "$sha_1_last_commit_online" ] ; then
-        #if [ "$sha_1_last_commit_online" != "$(head -n 1 $sha_1_robot_error)" ] ; then
+    if [ "$sha_1_last_commit_online" != "$(git -C $directory rev-parse HEAD)" ] ; then
+        if [ "$sha_1_last_commit_online" != (head -n 1 $sha_1_robot_error) ] ; then
             echo "+ Mise à jour du robot disponible." ; return 0
-        #fi
+        fi
     fi
     echo "+ Mise à jour du robot non disponsible." ; return 1
 }
