@@ -31,7 +31,7 @@ function robotstart() {
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
         else 
-            echo "- Le robot n'a pas pu être démarré."
+            echo "- Le robot n'a pas pu démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_error
         fi
     else
