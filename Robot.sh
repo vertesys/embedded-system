@@ -69,6 +69,7 @@ function applyupdate() {
 }
 ######################################################################################
 function autoupdate() {
+    sleep 30
     (robotstatus | tr - +) > $file_informations ; sleep 1
     if checkupdate ; then
         echo -n "  " ; robotstop
