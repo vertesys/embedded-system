@@ -68,6 +68,7 @@ function applyupdate() {
 }
 ######################################################################################
 function autoupdate() {
+    cp /dev/null $file_informations
     (robotstatus | tr - +) > $file_informations ; sleep 1
     if checkupdate ; then
         echo -n "  " ; robotstop
