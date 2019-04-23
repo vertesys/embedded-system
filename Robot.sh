@@ -1,7 +1,8 @@
 #!/bin/bash
 ######################################################################################
 function oneinstance() {
-    for pid in $(pgrep -f $(basename "$0")) ; do
+    pids=$(ps aux | grep -i bash.*$(basename "$0") | grep -v grep | awk '{print $2}')
+    for pid in $pids ; do
         if [ $$ -ne $pid ] ; then kill -9 $pid ; fi
     done
 } ; oneinstance
@@ -25,7 +26,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        $(nohup python "$directory/$script_py" > /dev/null 2>&1 &) ; sleep 1
+        ($directory/$script_py &) ; sleep 1
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
