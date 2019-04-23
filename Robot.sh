@@ -85,7 +85,7 @@ function autoupdate() {
                 echo -n "    " ; robotstart
             fi
         fi
-    if
+    fi
 } >> $file_informations
 ######################################################################################
 case "$1" in
