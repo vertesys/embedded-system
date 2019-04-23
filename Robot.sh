@@ -68,23 +68,24 @@ function applyupdate() {
 }
 ######################################################################################
 function autoupdate() {
-    robotstop > /dev/null ; robotstart | tr - + ;
-    while true ; do
-        if ! robotstatus > /dev/null ; then 
-            (cancelupdate ; robotstart) > /dev/null
+    (echo -n "  " ; robotstatus | tr - +) > $file_informations ; sleep 1
+    if checkupdate ; then
+        echo -n "  " ; robotstop
+        echo -n "  " ; applyupdate
+        echo -n "  " ; robotstart ; sleep 1
+        if ! robotstatus > /dev/null 2>&1 ; then
+            echo -n "  " ; cancelupdate 
+            echo -n "    " ; robotstart
         fi
-        echo -n "  " ; robotstatus | tr - + > $file_informations ; sleep 1
-        if checkupdate ; then
-            echo -n "  " ; robotstop
-            echo -n "  " ; applyupdate
+    else
+        if ! robotstatus > /dev/null 2>&1 ; then
             echo -n "  " ; robotstart ; sleep 1
             if ! robotstatus > /dev/null 2>&1 ; then
                 echo -n "  " ; cancelupdate 
                 echo -n "    " ; robotstart
             fi
         fi
-        sleep 3
-    done
+    if
 } >> $file_informations
 ######################################################################################
 case "$1" in
