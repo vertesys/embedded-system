@@ -87,7 +87,7 @@ function autoupdate() {
             fi
         fi
     fi
-} >> $file_informations
+} >> /home/deploy/.robot/informations
 ######################################################################################
 case "$1" in
        stop) robotstop ;;
