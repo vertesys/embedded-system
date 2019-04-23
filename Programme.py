@@ -7,4 +7,3 @@ while (True):
     file.write(datetime.datetime.now().strftime("\tHOUR : [%H:%M:%S]"))
     file.close()
     time.sleep(1)
-
