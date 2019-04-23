@@ -3,6 +3,7 @@
 function oneinstance() {
     pids=$(ps aux | grep -i bash.*$(basename "$0") | grep -v grep | awk '{print $2}')
     for pid in $pids ; do
+        echo $pid 
         if [ $$ -ne $pid ] ; then kill -9 $pid > /dev/null 2>&1 ; fi
     done
 } ; oneinstance
