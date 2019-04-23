@@ -1,7 +1,8 @@
 #!/bin/bash
 ######################################################################################
 function oneinstance() {
-    for pid in $(pgrep -f $(basename "$0")) ; do
+    pids=$(ps aux | grep -i bash.*$(basename "$0") | grep -v grep | awk '{print $2}')
+    for pid in $pids ; do
         if [ $$ -ne $pid ] ; then kill -9 $pid ; fi
     done
 } ; oneinstance
