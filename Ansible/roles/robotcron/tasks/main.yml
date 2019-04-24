@@ -8,24 +8,7 @@
 - name: "Activate the robot once at system startup"
   cron:
     name: Activate the robot once at system startup.
-    job: "/home/deploy/robot/Robot.sh auto"
+    job: "/home/pi/.robot/robot/Robot.sh auto"
     special_time: reboot
     state: present
     user: "deploy"
-
-# Restart machine to see if robot start automatically (cron job).
-- name: Restart machine to see if robot start automatically
-  shell: nohup sh -c '(sleep 5; shutdown -r now "Ansible restart") &' &>/dev/null
-  become: true
-  async: 1
-  poll: 0
-
-# Waiting for machine to come back.
-- name: Waiting for machine to come back
-  wait_for_connection:
-    delay: 5
-    timeout: 60
-
-# The machine is now available after a reboot
-- name: The machine is now available
-  shell: echo "Machine is now available."
