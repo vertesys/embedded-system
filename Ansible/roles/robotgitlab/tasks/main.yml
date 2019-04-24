@@ -10,12 +10,12 @@
     path: "{{item}}"
     state: absent
   with_items:
-    - {{directory}}/*
+    - "{{directory}}/*"
 
 # Clone the private repository for the embedded system.
 - name: Clone the private repository for the embedded system
   git:
     repo: http://{{username}}:{{token}}@{{repository}}
-    dest: {{directory}}/robot
+    dest: "{{directory}}/robot"
     version: master
   become: no
