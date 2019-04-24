@@ -2,12 +2,16 @@
 Déploiement d'un robot sur un système embarqué basé sur un Raspberry Pi.
 
 ## Mise en place du robot
-*Démarrer le robot (avec la prise en compte des mises à jour)*
+*Mise en place du robot avec mise à jour automatique.*
 ```bash
-./Robot auto &
+Ansible/install-all.sh
 ```
 
 ## Système de monitoring
+*Mise en place du monitoring du raspberry via le réseau.*
+```bash
+Ansible/install-all.sh
+```
 
 ## Liste des tâches
 - [x] Initialisation du structure du projet.
