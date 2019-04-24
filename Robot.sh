@@ -60,12 +60,12 @@ function checkupdate() {
     echo "+ Mise à jour du robot non disponsible." ; return 1
 }
 function cancelupdate() {
-    sleep 1; echo "+ Suppression de la mise à jour.";
+    sleep 2 ; echo "+ Suppression de la mise à jour.";
     git -C $directory reset --hard $(cat $sha_1_robot_works) > /dev/null 2>&1
 }
 function applyupdate() {
+    sleep 2 ; echo "- Application de la mise à jour."
     git -C $directory pull > /dev/null 2>&1
-    echo "- Application de la mise à jour." ; sleep 1
 }
 ######################################################################################
 function autoupdate() {
