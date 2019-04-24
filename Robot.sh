@@ -26,7 +26,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        ($directory/$script_py &) ; sleep 1
+        ($directory/$script_py &) ; sleep 2
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
@@ -35,16 +35,16 @@ function robotstart() {
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_error
         fi
     else
-        sleep 1 ; echo "- Le robot a été déjà démarré."
+        sleep 2 ; echo "- Le robot a été déjà démarré."
     fi
 }
 function robotstop() {
     if robotstatus > /dev/null ; then
         pids=$(ps aux | grep -i python.*$script_py | grep -v grep | awk '{print $2}')
-        (echo $pids | xargs kill -9 $1) > /dev/null 2>&1 ; sleep 1
-        echo "- Le robot a été arrêté."
+        (echo $pids | xargs kill -9 $1) > /dev/null 2>&1
+        ; sleep 2 ; echo "- Le robot a été arrêté." 
     else
-        sleep 1 ; echo "- Le robot a été déjà arrêté."
+        sleep 2 ; echo "- Le robot a été déjà arrêté."
     fi
 }
 ######################################################################################
@@ -53,17 +53,17 @@ function checkupdate() {
     sha_1_last_commit_online=$(git -C $directory ls-remote $url_remote HEAD | cut -f1)
     if [ $sha_1_last_commit_online != $(git -C $directory rev-parse HEAD) ] ; then
         #if [ "$sha_1_last_commit_online" != head -n 1 $sha_1_robot_error ] ; then
-        echo "+ Mise à jour du robot disponible." ; sleep 2 ; return 0
+         sleep 2 ; echo "+ Mise à jour du robot disponible." ; return 0
         #fi
     fi
-    echo "+ Mise à jour du robot non disponsible." ; sleep 2  return 1
+     sleep 2 ; echo "+ Mise à jour du robot non disponsible." ; return 1
 }
 function cancelupdate() {
-    echo "+ Suppression de la mise à jour." ; sleep 2
+    sleep 2 ; echo "+ Suppression de la mise à jour."
     git -C $directory reset --hard $(cat $sha_1_robot_works) > /dev/null 2>&1
 }
 function applyupdate() {
-    echo "- Application de la mise à jour." ; sleep 2
+    sleep 2 ; echo "- Application de la mise à jour."
     git -C $directory pull > /dev/null 2>&1
 }
 ######################################################################################
