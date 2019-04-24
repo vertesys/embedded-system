@@ -54,9 +54,9 @@ function checkupdate() {
     url_remote=$(git -C $directory config --get remote.origin.url)
     sha_1_last_commit_online=$(git -C $directory ls-remote $url_remote HEAD | cut -f1)
     if [ $sha_1_last_commit_online != $(git -C $directory rev-parse HEAD) ] ; then
-        #if [ "$sha_1_last_commit_online" != head -n 1 $sha_1_robot_error ] ; then
+        if [ $sha_1_last_commit_online != head -n 1 $sha_1_robot_error ] ; then
             echo "+ Mise à jour du robot disponible." ; return 0
-        #fi
+        fi
     fi
     echo "+ Mise à jour du robot non disponsible." ; return 1
 }
