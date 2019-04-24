@@ -27,7 +27,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        $(nohup python "$directory/$script_py" > /dev/null 2>&1 &) ; sleep 2
+        $(nohup python3 "$directory/$script_py" > /dev/null 2>&1 &) ; sleep 2
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
