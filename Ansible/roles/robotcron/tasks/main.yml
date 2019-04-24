@@ -1,14 +1,13 @@
 # Remove previous cron job for robot program.
 - name : Remove previous robot cron job 
   cron :
-    name  : Activate the robot once at system startup.
+    name  : Check update every minute.
     state : absent
 
-# Activate the robot once at system startup.
-- name: "Activate the robot once at system startup"
+# Check update every minute.
+- name: "Check update every minute"
   cron:
-    name: Activate the robot once at system startup.
+    name: Check update every minute.
     job: "/home/pi/.robot/robot/Robot.sh auto"
-    special_time: reboot
     state: present
-    user: "deploy"
+    user: "pi"
