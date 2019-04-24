@@ -2,7 +2,7 @@
 
 # Import os, time and datetime modules.
 import os, time, datetime
-print("RAMADANI Ben Djadid.")
+print("Changement")
 while (True):
     file = open(os.path.expanduser("~/.robot/programme.txt"), "w")
     file.write(datetime.datetime.today().strftime("\tDATE : %d-%m-%Y\n"))
