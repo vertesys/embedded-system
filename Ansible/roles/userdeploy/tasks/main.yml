@@ -29,12 +29,6 @@
     regexp: '^{{ username }}(\s+)'
     state: "absent"
 
-# Check if user is in sudoers, return 0 -> false and 1 -> true.
-# - name: "Check if user is already sudo without password"
-#   shell: 'grep "^{{ username }}[[:blank:]]" /etc/sudoers -c || true'
-#   register: grep_deploy_sudoers
-
-# Allow user to run command sudo without a password.
 - name: "Add deploy to sudo without a password"
   lineinfile:
     dest: "/etc/sudoers"
@@ -42,15 +36,4 @@
     insertafter : "^root"
     line: "{{ username }}\tALL=(ALL:ALL) NOPASSWD:ALL"
     regexp: "^{{ username }} "
-  # when: grep_deploy_sudoers.stdout == "0"
-
- # - name: "Disable root login from ssh"
- #  lineinfile:
- #    dest: "/etc/ssh/sshd_config"
- #    regexp: "^PermitRootLogin"
- #    line: "PermitRootLogin no"
- #    state: "present"
- #    backup: "yes"
- #  notify:
- #    - restart ssh
  
