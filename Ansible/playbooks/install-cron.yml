@@ -1,5 +1,5 @@
-# Start the robot on boot os by adding a cron job.
-- name: "ADD CRON JOB ON BOOT OS"
+# Start the robot every minute by adding a cron job.
+- name: "ADD CRON JOB TO START ROBOT"
   hosts: "raspberry"
   roles:
     - role: "Roles/robotcron"
