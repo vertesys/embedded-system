@@ -2,13 +2,13 @@
 - name: "CLONE ROBOT REPOSITORY"
   hosts: "raspberry"
   roles:
-    - role: "Roles/robotgitlab"
+    - role: "roles/robotgitlab"
 
 # Start the robot every minute by adding a cron job.
 - name: "ADD CRON JOB TO START ROBOT"
   hosts: "raspberry"
   roles:
-    - role: "Roles/robotcron"
+    - role: "roles/robotcron"
 
 # Installer tmux et ajouter ma commande robot.
 - name: "INSTALL TMUX & SETUP IT"
