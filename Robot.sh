@@ -27,7 +27,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        /home/pi/.robot/robot/$script_py &
+        # /home/pi/.robot/robot/$script_py &
         sleep 2
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
