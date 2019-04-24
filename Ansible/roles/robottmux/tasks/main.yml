@@ -8,12 +8,12 @@
 - name: "Copy my tmux configuration to hide status bar"
   copy:
     src: files/.tmux.conf
-    dest: /home/deploy
+    dest: /home/pi
 
 #A dd robot command to /usr/bin.
 - name: "Add robot command to /usr/bin for monitoring"
   copy:
     src: files/robot.sh
     dest: /usr/bin/robot
-    owner: deploy
+    owner: pi
     mode: a+x
