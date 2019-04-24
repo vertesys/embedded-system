@@ -12,7 +12,7 @@ function variables() {
     sha_1_robot_works=$($directory/../sha-1-robot-works) ; touch $sha_1_robot_works
     sha_1_robot_error=$($directory/../sha-1-robot-error) ; touch $sha_1_robot_error
     file_informations=$($directory/../informations) ; cp /dev/null $file_informations
-}
+} ; variables
 ######################################################################################
 function robotusage() {
     echo -e "Usage :\n   $0 auto|start|stop|restart|status\n" >&2 ; exit 0
@@ -69,7 +69,7 @@ function applyupdate() {
 }
 ######################################################################################
 function autoupdate() {
-    variables ; (robotstatus | tr - +) > $file_informations ; sleep 2
+    (robotstatus | tr - +) > $file_informations ; sleep 2
     if checkupdate ; then
         echo -n "  " ; robotstop
         echo -n "  " ; applyupdate
@@ -87,7 +87,7 @@ function autoupdate() {
             fi
         fi
     fi
-} >> /home/deploy/.robot/informations
+} >> /home/pi/.robot/informations
 ######################################################################################
 case "$1" in
        stop) robotstop ;;
