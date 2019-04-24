@@ -6,8 +6,6 @@ import ModuleEcran as ecran
 
 from time import sleep
 
-lancement = deb.Lancement()
-lancement.CheckRobot()
 afecran = ecran.Ecran()
 mov = mouv.Mouvements()
 objetDistance = dis.Distance()
@@ -17,40 +15,40 @@ Position = 0
 conteur = 0
 va = list
 ecran = 1
+state = "1"
 while True:
 
-    state = lancement.states_run()
     if state != "1":
-        lancement.Restartd()
+        mov.stop()
+
 
     elif state == '1':
         if ecran == 1:
-            afecran.text('coucou adj3')
+            afecran.text('coucou virtus')
             # afecran.image('cat.jpg')
             ecran = 0
 
         va = []
-        if objetDistance.distance() < 10:
-            mov.Ravancer(True, False, True, False, 0.6, 0.6)
+
+        if objetDistance.distance() < 35:
             Vconteur = 3
             Position = 0
             conteur = 0
-            sleep(1)
-
         elif Position == 0:
 
             if conteur == 0:
-                mov.Ravancer(False, True, True, False, 0.5, 0.5)
+                mov.Ravancer(False, True, True, False, 0.8, 0.8)
                 va.append(objetDistance.distance())
 
-            if objetDistance.distance() > min(va) + 10:
+            if objetDistance.distance() > min(va):
                 conteur = 1
                 Position = 1
                 Vconteur = 0
                 mov.Ravancer(False, False, False, False, 0, 0)
+                sleep(1)
 
         elif Vconteur == 0:
-            caldis = (objetDistance.distance() / 2)
+            caldis = (objetDistance.distance())
             Vconteur = 1
 
         elif Vconteur == 1:
@@ -60,7 +58,6 @@ while True:
                 Vconteur = 3
                 Position = 0
                 conteur = 0
+                sleep(1)
             else:
                 mov.avancer()
-
-
