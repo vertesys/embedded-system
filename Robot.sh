@@ -5,8 +5,7 @@ function oneinstance() {
     for pid in $pids ; do 
         if [ $$ -ne $pid ] ; then kill -9 $pid > /dev/null 2>&1 ; fi
     done
-}
-#; oneinstance
+} ; oneinstance
 function variables() {
     directory="/home/pi/.robot/robot" ; script_py="Programme.py" ; 
     mkdir -p $directory > /dev/null 2>&1 ; chmod +x $directory/$script_py
