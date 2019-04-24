@@ -53,18 +53,17 @@ function checkupdate() {
     sha_1_last_commit_online=$(git -C $directory ls-remote $url_remote HEAD | cut -f1)
     if [ $sha_1_last_commit_online != $(git -C $directory rev-parse HEAD) ] ; then
         #if [ "$sha_1_last_commit_online" != head -n 1 $sha_1_robot_error ] ; then
-        #    echo "+ Mise à jour du robot disponible." ; return 0
+        echo "+ Mise à jour du robot disponible." ; sleep 2 ; return 0
         #fi
-        echo "+ Mise à jour du robot disponible." ; sleep 1 ; return 0
     fi
-    echo "+ Mise à jour du robot non disponsible." ; sleep 1  return 1
+    echo "+ Mise à jour du robot non disponsible." ; sleep 2  return 1
 }
 function cancelupdate() {
-    sleep 2 ; echo "+ Suppression de la mise à jour.";
+    echo "+ Suppression de la mise à jour." ; sleep 2
     git -C $directory reset --hard $(cat $sha_1_robot_works) > /dev/null 2>&1
 }
 function applyupdate() {
-    sleep 2 ; echo "- Application de la mise à jour."
+    echo "- Application de la mise à jour." ; sleep 2
     git -C $directory pull > /dev/null 2>&1
 }
 ######################################################################################
