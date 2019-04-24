@@ -18,37 +18,10 @@ conteur = 0
 va = []
 while True:
 
-    afecran.text(presence.mouvement())
 
-    if objetDistance.distance() < 10 :
-        Vconteur = 3
-        Position = 0
-
-    if Position == 0:
-        if conteur == 0:
-            mov.Ravancer(False, True, True, False, 0.5, 0.5)
-            va.append(objetDistance.distance())
-
-        if objetDistance.distance() > min(va)+10 :
-            conteur = 1
-            Position = 1
-            Vconteur = 0
-            mov.Ravancer(False, False, False, False, 0, 0)
-
-        # print(objetDistance.distance())
-        # print('min',min(va))
-        sleep(1)
-
+    if objetDistance.distance() < 35 :
+        mov.stop()
     else:
-
-        if Vconteur == 0 :
-            caldis = (objetDistance.distance()/2)
-            Vconteur = 1
-        elif Vconteur == 1:
-
-            if objetDistance.distance() <= caldis:
-                mov.Ravancer(False,False,False,False,0,0)
-            else:
-                mov.avancer()
+        mov.avancer()
 
 

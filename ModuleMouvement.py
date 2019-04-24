@@ -43,44 +43,38 @@ class Mouvements(detecproxi.detection):
 
         self.val = self.obstacle()
 
-        # self.forwardLeft.value = self.forwardgauche
-        # self.reverseLeft.value = self.reversegauche
-        # self.forwardRight.value = self.forwarddroite
-        # self.reverseRight.value = self.reversedroite
-        # self.driveLeft.value = self.Vgauche
-        # self.driveRight.value = self.Vdroite
-
-        if self.val == "droite":
-            self.forwardLeft.value = False
-            self.reverseLeft.value = True
-            self.forwardRight.value = False
-            self.reverseRight.value = True
-            self.driveLeft.value = 1
-            self.driveRight.value = 0.2
-
-
-        elif self.val == "gauche":
-            self.forwardLeft.value = False
-            self.reverseLeft.value = True
-            self.forwardRight.value = False
-            self.reverseRight.value = True
-            self.driveLeft.value = 0.2
-            self.driveRight.value = 1
-
-        elif self.val == "centre":
+        if self.val == "gauche":
             self.forwardLeft.value = True
             self.reverseLeft.value = False
             self.forwardRight.value = True
             self.reverseRight.value = False
             self.driveLeft.value = 1
+            self.driveRight.value = 0.2
+
+
+        elif self.val == "droite":
+            self.forwardLeft.value = True
+            self.reverseLeft.value = False
+            self.forwardRight.value = True
+            self.reverseRight.value = False
+            self.driveLeft.value = 0.2
             self.driveRight.value = 1
         else:
+            self.forwardLeft.value = True
+            self.reverseLeft.value = False
+            self.forwardRight.value = True
+            self.reverseRight.value = False
+            self.driveLeft.value = 1.0
+            self.driveRight.value = 1.0
+
+
+    def stop(self):
             self.forwardLeft.value = False
             self.reverseLeft.value = True
             self.forwardRight.value = False
             self.reverseRight.value = True
-            self.driveLeft.value = 1
-            self.driveRight.value = 1
+            self.driveLeft.value = 0
+            self.driveRight.value = 0
 
 
 

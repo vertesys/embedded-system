@@ -31,7 +31,7 @@ ser.write(bytes(1))
 
 # ser.write(0x06)
 ser.write(bytes(6))
-
+Dist_Total = 200
 while (True):
 
     while (ser.in_waiting >= 9):
@@ -44,7 +44,3 @@ while (True):
             for i in range(0, 5):
                 ser.read()
             print(Dist_Total/100)
-
-        # print(Dist_Total)
-        if (Dist_Total < 35):
-            print('ff')

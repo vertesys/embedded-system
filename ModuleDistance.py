@@ -1,44 +1,48 @@
-# Libraries
+import serial
 import RPi.GPIO as GPIO
-import time
+
 
 class Distance():
 
-        def __init__(self):
-                # GPIO Mode (BOARD / BCM)
-                GPIO.setmode(GPIO.BCM)
+    def __init__(self):
+        #GPIO.setmode(GPIO.BOARD)
+        GPIO.setwarnings(False)
+        self.Dist_Total = 200
+        self.ser = serial.Serial('/dev/ttyAMA0', 115200, timeout=1)
 
-                # set GPIO Pins
-                self.GPIO_TRIGGER = 12
-                self.GPIO_ECHO = 16
+        # ser.write(0x42)
+        self.ser.write(bytes(b'B'))
 
-                # set GPIO direction (IN / OUT)
-                GPIO.setup(self.GPIO_TRIGGER, GPIO.OUT)
-                GPIO.setup(self.GPIO_ECHO, GPIO.IN)
+        # ser.write(0x57)
+        self.ser.write(bytes(b'W'))
 
-        def distance(self) -> float:
-                # set Trigger to HIGH
-                GPIO.output(self.GPIO_TRIGGER, True)
+        # ser.write(0x02)
+        self.ser.write(bytes(2))
 
-                # set Trigger after 0.01ms to LOW
-                time.sleep(0.00002)
-                GPIO.output(self.GPIO_TRIGGER, False)
+        # ser.write(0x00)
+        self.ser.write(bytes(0))
 
-                StartTime = time.time()
-                StopTime = time.time()
+        # ser.write(0x00)
+        self.ser.write(bytes(0))
 
-                # save StartTime
-                while GPIO.input(self.GPIO_ECHO) == 0:
-                    StartTime = time.time()
+        # ser.write(0x00)
+        self.ser.write(bytes(0))
 
-                # save time of arrival
-                while GPIO.input(self.GPIO_ECHO) == 1:
-                    StopTime = time.time()
+        # ser.write(0x01)
+        self.ser.write(bytes(1))
 
-                # time difference between start and arrival
-                TimeElapsed = StopTime - StartTime
-                # multiply with the sonic speed (34300 cm/s)
-                # and divide by 2, because there and back
-                distance = (TimeElapsed * 34300) / 2
+        # ser.write(0x06)
+        self.ser.write(bytes(6))
+        Dist_Total = 200
 
-                return distance
+    def distance(self) -> float:
+        if ((b'Y' == self.ser.read()) and (b'Y' == self.ser.read())):
+
+            Dist_L = self.ser.read()
+            Dist_H = self.ser.read()
+            self.Dist_Total = (ord(Dist_H) * 256) + (ord(Dist_L))
+            for i in range(0, 5):
+                self.ser.read()
+            self.Dist_Total = (self.Dist_Total)
+
+        return self.Dist_Total
