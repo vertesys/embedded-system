@@ -1,5 +1,0 @@
-# Création de user deploy avec droits sudoers.
-- name: "ADD DEPLOY USER ACCOUNT"
-  hosts: "raspberry"
-  roles:
-    - role: "roles/userdeploy"

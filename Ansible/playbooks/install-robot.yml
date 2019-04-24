@@ -1,5 +1,0 @@
-# Clone le dépôt du robot dans le dépertoire de pi.
-- name: "CLONE ROBOT REPOSITORY"
-  hosts: "raspberry"
-  roles:
-    - role: "Roles/robotgitlab"
