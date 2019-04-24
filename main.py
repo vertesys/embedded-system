@@ -24,9 +24,8 @@ while True:
 
     elif state == '1':
         if ecran == 1:
-            
             afecran.image('cat.jpg')
-            afecran.text('01234dgsd fgsdfgsdfgs fgsdf56789')
+            #afecran.text('01234dgsd fgsdfgsdfgs fgsdf56789')
             ecran = 0
 
         va = []
