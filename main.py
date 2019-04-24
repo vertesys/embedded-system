@@ -24,8 +24,8 @@ while True:
 
     elif state == '1':
         if ecran == 1:
-            #afecran.text('FANTASTICS')
-            afecran.image('cat.jpg')
+            afecran.text('0123456789')
+            #afecran.image('cat.jpg')
             ecran = 0
 
         va = []
