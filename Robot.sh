@@ -77,14 +77,14 @@ function autoupdate() {
     if checkupdate ; then
         echo -n "  " ; robotstop
         echo -n "  " ; applyupdate
-        echo -n "  " ; robotstart ; sleep 1
+        echo -n "  " ; robotstart
         if ! robotstatus > /dev/null 2>&1 ; then
             echo -n "  " ; cancelupdate
             echo -n "    " ; robotstart
         fi
     else
         if ! robotstatus > /dev/null 2>&1 ; then
-            echo -n "  " ; robotstart ; sleep 1
+            echo -n "  " ; robotstart
             if ! robotstatus > /dev/null 2>&1 ; then
                 echo -n "  " ; cancelupdate 
                 echo -n "    " ; robotstart
