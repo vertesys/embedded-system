@@ -88,7 +88,8 @@ function autoupdate() {
             fi
         fi
     fi
-} >> /home/pi/.robot/informations
+} 
+#>> /home/pi/.robot/informations
 ######################################################################################
 case "$1" in
        stop) robotstop ;;
