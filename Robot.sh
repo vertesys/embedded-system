@@ -66,6 +66,7 @@ function cancelupdate() {
 }
 function applyupdate() {
     sleep 2 ; echo "- Application de la mise à jour."
+    git checkout -C $directory .
     (find $directory/.git/objects/ -size 0 -exec rm -f {} \;) > /dev/null 2>&1
     git -C $directory branch --set-upstream-to=origin/master master > /dev/null 2>&1
     git -C $directory pull > /dev/null 2>&1
