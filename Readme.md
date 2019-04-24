@@ -7,7 +7,6 @@ Déploiement d'un robot sur un système embarqué basé sur un Raspberry Pi.
 ./Robot auto &
 ```
 
-
 ## Système de monitoring
 
 ## Liste des tâches
