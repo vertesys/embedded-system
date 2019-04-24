@@ -10,7 +10,7 @@ function robot-status {
 
     tmux send-keys -t robot.0 "cd ~/.robot ; clear; ls" ENTER
     tmux send-keys -t robot.1 "watch -n 1 cat /home/deploy/.robot/programme.txt" ENTER
-    tmux send-keys -t robot.2 "watch -n 1 cat /home/deploy/robot/Programme.py" ENTER
+    tmux send-keys -t robot.2 "watch -n 1 cat /home/deploy/.robot/robot/Programme.py" ENTER
     tmux send-keys -t robot.3 "watch -n 1 cat /home/deploy/.robot/informations" ENTER
 
     tmux selectp -t 0
