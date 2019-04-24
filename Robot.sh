@@ -7,7 +7,7 @@ function oneinstance() {
     done
 } ; oneinstance
 function variables() {
-    directory="." ; script_py="Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
+    directory="." ; script_py="/home/deploy/robot/Programme.py" ; mkdir ~/.robot/ > /dev/null 2>&1
     sha_1_robot_works=~/.robot/sha-1-robot-works ; touch $sha_1_robot_works
     sha_1_robot_error=~/.robot/sha-1-robot-error ; touch $sha_1_robot_error
     file_informations=~/.robot/informations ; > $file_informations
@@ -26,7 +26,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        ($directory/$script_py &) ; sleep 2
+        ($script_py &) ; sleep 2
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
