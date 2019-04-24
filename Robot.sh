@@ -42,7 +42,7 @@ function robotstop() {
     if robotstatus > /dev/null ; then
         pids=$(ps aux | grep -i python.*$script_py | grep -v grep | awk '{print $2}')
         (echo $pids | xargs kill -9 $1) > /dev/null 2>&1
-        ; sleep 2 ; echo "- Le robot a été arrêté." 
+        sleep 2 ; echo "- Le robot a été arrêté." 
     else
         sleep 2 ; echo "- Le robot a été déjà arrêté."
     fi
