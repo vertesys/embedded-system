@@ -55,9 +55,9 @@ function checkupdate() {
         #if [ "$sha_1_last_commit_online" != head -n 1 $sha_1_robot_error ] ; then
         #    echo "+ Mise à jour du robot disponible." ; return 0
         #fi
-        echo "+ Mise à jour du robot disponible." ; return 0
+        echo "+ Mise à jour du robot disponible." ; sleep 1 ; return 0
     fi
-    echo "+ Mise à jour du robot non disponsible." ; return 1
+    echo "+ Mise à jour du robot non disponsible." ; sleep 1  return 1
 }
 function cancelupdate() {
     sleep 2 ; echo "+ Suppression de la mise à jour.";
