@@ -4,8 +4,9 @@ Déploiement d'un robot sur un système embarqué basé sur un Raspberry Pi.
 ## Mise en place du robot
 *Démarrer le robot (avec la prise en compte des mises à jour)*
 ```bash
-./Robot auto
+./Robot auto &
 ```
+
 
 ## Système de monitoring
 
