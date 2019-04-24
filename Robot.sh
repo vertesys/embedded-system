@@ -27,8 +27,7 @@ function robotstatus() {
 ######################################################################################
 function robotstart() {
     if ! robotstatus > /dev/null ; then
-        # /home/pi/.robot/robot/$script_py &
-        sleep 2
+        python $directory/$script_py & sleep 2
         if robotstatus > /dev/null ; then
             echo "- Le robot a été démarré."
             echo $(git -C $directory rev-parse HEAD) > $sha_1_robot_works
