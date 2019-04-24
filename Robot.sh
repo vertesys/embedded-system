@@ -9,7 +9,7 @@ function oneinstance() {
 #; oneinstance
 function variables() {
     directory="/home/pi/.robot/robot" ; script_py="Programme.py" ; 
-    mkdir -p $directory > /dev/null 2>&1 ; # chmod +x $($directory/$script_py)
+    mkdir -p $directory > /dev/null 2>&1 ; chmod +x $directory/$script_py
     sha_1_robot_works=/home/pi/.robot/sha-1-robot-works ; touch $sha_1_robot_works
     sha_1_robot_error=/home/pi/.robot/sha-1-robot-error ; touch $sha_1_robot_error
     file_informations=/home/pi/.robot/informations ; > $file_informations
