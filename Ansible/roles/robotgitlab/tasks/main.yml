@@ -10,50 +10,12 @@
     path: "{{item}}"
     state: absent
   with_items:
-    - /home/deploy/.robot/*
-    - /home/deploy/robot/*
+    - {{directory}}/*
 
 # Clone the private repository for the embedded system.
 - name: Clone the private repository for the embedded system
   git:
     repo: http://{{username}}:{{token}}@{{repository}}
-    dest: /home/deploy/robot
+    dest: {{directory}}/robot
     version: master
   become: no
-
-# -------------------------------------------------------------------------
-# NOT WORKING YET
-#- name: Start script Robot.py in background
-#  shell: (nohup python /home/deploy/robot/Robot.sh auto &)
-#  become: no
-#  become_user: deploy
-
-# Clone the public repository for the embedded system.
-#- name: Clone the public repository for the embedded system
-#  git:
-#    repo: http://{{repository}}
-#    dest: /home/deploy/robot
-#    version: master
-
-# Copy SSH private key file to clone private repository.
-#- name: Configure SSH to use ansible key for 139.99.202.52
-#  template: 
-#    src: templates/ssh_config.j2
-#    dest: /home/deploy/.ssh/config
-#    mode: 0644
-
-# Copy SSH private key file for private repository.
-#- name: Copy SSH private key file for private repository
-#  copy: 
-#    src: files/id_rsa.gitlab
-#    dest: /home/deploy/.ssh/id_rsa.gitlab
-#    mode: 0600
-
-# NOT WORKING YET - Clone the private repository for the embedded system.
-#- name: Clone the private repository for the embedded system
-#  git:
-#    repo: ssh:git@{{repository}}
-#    key_file: /home/deploy/.ssh/id_rsa.gitlab
-#    dest: /home/deploy/.robot
-#    accept_hostkey: yes
-# -------------------------------------------------------------------------
