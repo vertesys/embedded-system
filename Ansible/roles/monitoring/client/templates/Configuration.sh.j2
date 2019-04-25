@@ -1,0 +1,8 @@
+#!/bin/bash
+git config --local user.name "EMIL Ben Djadid"
+git config --local user.email "Emil.Ben.Djadid@Gmail.com"
+git remote remove production
+git remote add production {% for addressip in groups['raspberry'] %}git@{{addressip}}:~/Monitoring
+{% endfor %}
+git add . && git commit -am "Update repository"
+git push --force production master

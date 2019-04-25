@@ -1,69 +1,15 @@
 # Please se this for more details : https://gist.github.com/thomasfr/9691385
+- name: ""
+  include_tasks: "install-git.yml"
 
-# 1. Install git package to the latest version.
-- name: Install git package to the latest version
-  apt:
-    name: git
-    state: present
+- name: ""
+  include_tasks: "install-user.yml"
 
-# 2. It is not possible to interactively login as this user.
-- name: Create a user call git on the server
-  user:
-    name: "{{username}}"
-    groups:
-    state: present
-    shell: /usr/bin/git-shell
-    createhome: yes
-    home: "/home/{{username}}"
+- name: ""
+  include_tasks: "install-key.yml"
 
-# 3. Add your ssh public key to the authorized_keys file of the created user.
-- name: Create directory "{{directory_home}}/.ssh"
-  file:
-    path: "{{directory_home}}/.ssh"
-    state: directory
-    owner: "{{username}}"
-    group: "{{username}}"
-  become: yes
+- name: ""
+  include_tasks: "install-repo.yml"
 
-- name: Copy id_rsa.gitlab.pub to "~/.ssh/authorized_keys"
-  copy:
-    src: files/id_rsa.gitlab.pub 
-    dest: "{{directory_home}}/.ssh/authorized_keys"
-    owner: "{{username}}"
-    group: "{{username}}"
-    mode: 400
-  become: yes
-
-# 4. Create a git bare repo for your project.
-- name: Create directory {{directory_repo}}
-  file:
-    path: "{{directory_repo}}"
-    state: directory
-    owner: "{{username}}"
-    group: "{{username}}"
-
-- name: Create directory {{directory_repo}}
-  shell: git -C {{directory_repo}} init --bare
-  args:
-    executable: /bin/bash
-
-# 5. Copy the post-receive script to the hooks dir of the created bare repository. 
-- name: Copy post-receive to hooks/post-receive on server
-  copy: 
-    src: files/post-receive
-    dest: "{{directory_repo}}/hooks/post-receive"
-
-- name: Set chmod +x the post-receive script
-  file: 
-    path: "{{directory_repo}}/hooks/post-receive"
-    mode: "a+x"
-
-# 6. Set ownership and permissions of the web directory.
-- name: Set ownership and permissions of the web directory
-  file:
-    path: "/var/www"
-    state: directory
-    recurse: yes
-    owner: root
-    group: "{{username}}"
-    mode: 0775
+- name: ""
+  include_tasks: "install-web.yml"

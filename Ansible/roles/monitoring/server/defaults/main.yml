@@ -2,4 +2,4 @@ username: "git"
 
 directory_web: /var/www/monitoring
 directory_home: "/home/{{username}}"
-directory_repo: "/home/{{username}}/monitoring"
+directory_repo: "/home/{{username}}/Monitoring"

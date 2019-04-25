@@ -1,0 +1,28 @@
+# Create a folder for git project.
+- name: Create directory {{directory_repo}}
+  file:
+    path: "{{directory_repo}}"
+    state: directory
+    owner: "{{username}}"
+    group: "{{username}}"
+
+# Initialize git repository for monitoring.
+- name: Iniatilize git repository {{directory_repo}}
+  shell: git -C "{{directory_repo}}" init
+  args:
+    executable: /bin/bash
+
+- name: Git remote remove previous configuration
+  shell: git -C "{{directory_repo}}" remote remove production
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+
+- name: Fix {{directory_repo}} permissions
+  file: 
+    path: "{{directory_repo}}"
+    owner: "{{username}}"
+    group: "{{username}}" 
+    mode: 0775
+    state: directory
+    recurse: yes

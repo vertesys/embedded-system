@@ -1,86 +1,18 @@
-# Create .ssh folder if not exist in the home directory.
-- name: Create directory {{directory_home}}/.ssh
-  file:
-    path: "{{directory_home}}/.ssh"
-    state: directory
+# Please se this for more details : https://gist.github.com/thomasfr/9691385
+#- name: ""
+#  include_tasks: "install-key.yml"
 
-# Copying private key to the client machine.
-- name: Delete previous {{directory_home}}/.ssh/id_rsa.gitlab
-  file:
-    path: "{{directory_home}}/.ssh/id_rsa.gitlab"
-    state: absent
+#- name: ""
+#  include_tasks: "install-repo.yml"
 
-- name: Copy id_rsa.gitlab to {{directory_home}}/.ssh/id_rsa.gitlab
-  copy:
-    src: files/id_rsa.gitlab
-    dest: "{{directory_home}}/.ssh/id_rsa.gitlab"
-    owner: "{{username}}"
-    group: "{{username}}"
-    mode: 400
-  become: yes
+- name: ""
+  include_tasks: "install-script.yml"
 
-# Copying ssh config file to the client machine.
-- name: Delete previous {{directory_home}}/.ssh/config
-  file:
-    path: "{{directory_home}}/.ssh/config"
-    state: absent
+#- name: ""
+#  include_tasks: "install-cron.yml"
 
-- name: Configuring {{directory_home}}/.ssh/config for git
-  template:
-    src: config.j2
-    dest: "{{directory_home}}/.ssh/config"
-    owner: "{{username}}"
-    group: "{{username}}"
-
-# Create a folder for git project.
-- name: Create directory {{directory_repo}}
-  file:
-    path: "{{directory_repo}}"
-    state: directory
-    owner: "{{username}}"
-    group: "{{username}}"
-  become: no
-
-# Initialize git repository for monitoring.
-- name: Iniatilize git repository {{directory_repo}}
-  shell: git -C "{{directory_repo}}" init
-  args:
-    executable: /bin/bash
-  become: no
-
-- name: Git remote remove previous configuration
-  shell: git -C "{{directory_repo}}" remote remove production > /dev/null 2>&1
-  args:
-    executable: /bin/bash
-  register: swap_exists
-  ignore_errors: true
-
-- name: "Remote : production {{git_remote_url}}"
-  shell: cd {{directory_repo}} && git remote add production "{{git_remote_url}}"
-  args:
-    executable: /bin/bash
-  become: yes
-  become_user: pi
-
-- name: Copy Make to {{directory_repo}}
-  template:
-    src: Make.j2
-    dest: "{{directory_repo}}/Make"
-    owner: "{{username}}"
-    group: "{{username}}"
-  become: yes
-  become_user: pi
-
-- name: Transfer the script to config git repository
-  template: 
-    src: script.sh.j2
-    dest: "{{directory_repo}}/script.sh"
-    owner: "{{username}}"
-    group: "{{username}}"
-    mode: 0777
-
-- name: Execute the script to config repository
-  shell: cd "{{directory_repo}}" && ./script.sh
-  args:
-    executable: /bin/bash
-  become: yes
+#- name: Execute the script to config repository
+#  shell: cd "{{directory_repo}}" && ./script.sh
+#  args:
+#    executable: /bin/bash
+#  become: yes
