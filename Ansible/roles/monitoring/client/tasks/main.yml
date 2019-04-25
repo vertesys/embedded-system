@@ -57,15 +57,26 @@
 
 - name: Copy Make to {{directory_repo}}
   template:
+    src: config.j2
+    dest: "{{directory_home}}/.ssh/config"
+    owner: "{{username}}"
+    group: "{{username}}"
+
+- name: Copy Make to {{directory_repo}}
+  template:
     src: Make.j2
     dest: "{{directory_repo}}/Make"
-  become: true
+    owner: "{{username}}"
+    group: "{{username}}"
 
 - name: Transfer the script to config git repository
   template: 
-    src: script.sh
+    src: script.sh.j2
     dest: "{{directory_repo}}/script.sh"
     mode: 0777
 
 - name: Execute the script to config repository
-  command: sh "{{directory_repo}}/script.sh"
+  shell: cd "{{directory_repo}}" && ./script.sh
+  args:
+    executable: /bin/bash
+  become: yes

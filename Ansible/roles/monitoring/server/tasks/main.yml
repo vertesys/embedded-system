@@ -21,23 +21,30 @@
   file:
     path: "{{directory_home}}/.ssh"
     state: directory
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 0777
+  become: yes
 
 - name: Copy id_rsa.gitlab.pub to "~/.ssh/authorized_keys"
   copy:
     src: files/id_rsa.gitlab.pub 
     dest: "{{directory_home}}/.ssh/authorized_keys"
+    owner: "{{username}}"
+    group: "{{username}}"
 
 # 4. Create a git bare repo for your project.
 - name: Create directory {{directory_repo}}
   file:
     path: "{{directory_repo}}"
     state: directory
+    owner: "{{username}}"
+    group: "{{username}}"
 
 - name: Create directory {{directory_repo}}
   shell: git -C {{directory_repo}} init --bare
   args:
     executable: /bin/bash
-  become: yes
 
 # 5. Copy the post-receive script to the hooks dir of the created bare repository. 
 - name: Copy post-receive to hooks/post-receive on server
