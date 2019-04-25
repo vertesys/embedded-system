@@ -39,16 +39,33 @@
     executable: /bin/bash
 
 - name: Git remote remove previous configuration
-  shell: git -C "{{directory_repo}}" remote add production "{{git_remote_url}}"
+  shell: git -C "{{directory_repo}}" remote remove production > /dev/null 2>&1
+  args:
+    executable: /bin/bash
+  register: swap_exists
+  ignore_errors: true
+
+- name: "Remote : production {{git_remote_url}}"
+  shell: cd {{directory_repo}} && git remote add production "{{git_remote_url}}"
   args:
     executable: /bin/bash
 
-- name: Git remote add production {{git_remote_url}}
-  shell: git -C "{{directory_repo}}" remote set-url production "{{git_remote_url}}"
-  args:
-    executable: /bin/bash
+- name: Delete previous {{directory_repo}}/Make
+  file:
+    path: "{{directory_home}}/.ssh/config"
+    state: absent
 
-- name: Make file to {{directory_repo}}
-  copy:
-    src: files/id_rsa.gitlab
-    dest: "{{directory_home}}/.ssh/id_rsa.gitlab"
+- name: Copy Make to {{directory_repo}}
+  template:
+    src: Make.j2
+    dest: "{{directory_repo}}/Make"
+  become: true
+
+- name: Transfer the script to config git repository
+  template: 
+    src: script.sh
+    dest: "{{directory_repo}}/script.sh"
+    mode: 0777
+
+- name: Execute the script to config repository
+  command: sh "{{directory_repo}}/script.sh"
