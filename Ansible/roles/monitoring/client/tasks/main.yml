@@ -14,8 +14,12 @@
   copy:
     src: files/id_rsa.gitlab
     dest: "{{directory_home}}/.ssh/id_rsa.gitlab"
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 400
+  become: yes
 
-# Copying private key to the client machine.
+# Copying ssh config file to the client machine.
 - name: Delete previous {{directory_home}}/.ssh/config
   file:
     path: "{{directory_home}}/.ssh/config"
@@ -25,18 +29,24 @@
   template:
     src: config.j2
     dest: "{{directory_home}}/.ssh/config"
+    owner: "{{username}}"
+    group: "{{username}}"
 
 # Create a folder for git project.
 - name: Create directory {{directory_repo}}
   file:
     path: "{{directory_repo}}"
     state: directory
+    owner: "{{username}}"
+    group: "{{username}}"
+  become: no
 
 # Initialize git repository for monitoring.
 - name: Iniatilize git repository {{directory_repo}}
   shell: git -C "{{directory_repo}}" init
   args:
     executable: /bin/bash
+  become: no
 
 - name: Git remote remove previous configuration
   shell: git -C "{{directory_repo}}" remote remove production > /dev/null 2>&1
@@ -49,18 +59,8 @@
   shell: cd {{directory_repo}} && git remote add production "{{git_remote_url}}"
   args:
     executable: /bin/bash
-
-- name: Delete previous {{directory_repo}}/Make
-  file:
-    path: "{{directory_home}}/.ssh/config"
-    state: absent
-
-- name: Copy Make to {{directory_repo}}
-  template:
-    src: config.j2
-    dest: "{{directory_home}}/.ssh/config"
-    owner: "{{username}}"
-    group: "{{username}}"
+  become: yes
+  become_user: pi
 
 - name: Copy Make to {{directory_repo}}
   template:
@@ -68,11 +68,15 @@
     dest: "{{directory_repo}}/Make"
     owner: "{{username}}"
     group: "{{username}}"
+  become: yes
+  become_user: pi
 
 - name: Transfer the script to config git repository
   template: 
     src: script.sh.j2
     dest: "{{directory_repo}}/script.sh"
+    owner: "{{username}}"
+    group: "{{username}}"
     mode: 0777
 
 - name: Execute the script to config repository

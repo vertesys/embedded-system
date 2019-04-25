@@ -2,5 +2,5 @@ username: pi
 
 directory_home: "/home/{{username}}"
 directory_repo: "/home/{{username}}/Monitoring"
-git_remote_url: "git@192.168.1.4:~/monitoring"
+git_remote_url: "git@192.168.1.124:~/monitoring"
 ssh_private_key: "/home/{{username}}/.ssh/id_rsa.gitlab"

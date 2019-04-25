@@ -23,7 +23,6 @@
     state: directory
     owner: "{{username}}"
     group: "{{username}}"
-    mode: 0777
   become: yes
 
 - name: Copy id_rsa.gitlab.pub to "~/.ssh/authorized_keys"
@@ -32,6 +31,8 @@
     dest: "{{directory_home}}/.ssh/authorized_keys"
     owner: "{{username}}"
     group: "{{username}}"
+    mode: 400
+  become: yes
 
 # 4. Create a git bare repo for your project.
 - name: Create directory {{directory_repo}}
