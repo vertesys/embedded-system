@@ -1,0 +1,54 @@
+# Create .ssh folder if not exist in the home directory.
+- name: Create directory {{directory_home}}/.ssh
+  file:
+    path: "{{directory_home}}/.ssh"
+    state: directory
+
+# Copying private key to the client machine.
+- name: Delete previous {{directory_home}}/.ssh/id_rsa.gitlab
+  file:
+    path: "{{directory_home}}/.ssh/id_rsa.gitlab"
+    state: absent
+
+- name: Copy id_rsa.gitlab to {{directory_home}}/.ssh/id_rsa.gitlab
+  copy:
+    src: files/id_rsa.gitlab
+    dest: "{{directory_home}}/.ssh/id_rsa.gitlab"
+
+# Copying private key to the client machine.
+- name: Delete previous {{directory_home}}/.ssh/config
+  file:
+    path: "{{directory_home}}/.ssh/config"
+    state: absent
+
+- name: Configuring {{directory_home}}/.ssh/config for git
+  template:
+    src: config.j2
+    dest: "{{directory_home}}/.ssh/config"
+
+# Create a folder for git project.
+- name: Create directory {{directory_repo}}
+  file:
+    path: "{{directory_repo}}"
+    state: directory
+
+# Initialize git repository for monitoring.
+- name: Iniatilize git repository {{directory_repo}}
+  shell: git -C "{{directory_repo}}" init
+  args:
+    executable: /bin/bash
+
+- name: Git remote remove previous configuration
+  shell: git -C "{{directory_repo}}" remote add production "{{git_remote_url}}"
+  args:
+    executable: /bin/bash
+
+- name: Git remote add production {{git_remote_url}}
+  shell: git -C "{{directory_repo}}" remote set-url production "{{git_remote_url}}"
+  args:
+    executable: /bin/bash
+
+- name: Make file to {{directory_repo}}
+  copy:
+    src: files/id_rsa.gitlab
+    dest: "{{directory_home}}/.ssh/id_rsa.gitlab"
