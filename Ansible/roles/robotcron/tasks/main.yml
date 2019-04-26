@@ -13,13 +13,13 @@
 - name: "Check update every 1 minute after xx:00"
   cron:
     name: Check update every 1 minute after xx:00 seconds.
-    job: "/home/pi/.robot/robot/Robot.sh auto"
+    job: "/home/pi/.fantastics/robot/Robot.sh auto"
     state: present
     user: "pi"
 
 - name: "Check update every 1 minute after xx:30"
   cron:
     name: Check update every 1 minute after xx:30 seconds.
-    job: "sleep 30 && /home/pi/.robot/robot/Robot.sh auto"
+    job: "sleep 30 && /home/pi/.fantastics/robot/Robot.sh auto"
     state: present
     user: "pi"
