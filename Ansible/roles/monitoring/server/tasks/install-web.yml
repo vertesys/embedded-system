@@ -1,0 +1,36 @@
+# 6. Install ngnix and configure it.
+
+#- name: Stop nginx service
+#  service:
+#    name: nginx
+#    state: stopped
+
+#- name: Ensure nginx is not installed.
+#  apt:
+#  name: nginx
+#  state: absent
+
+- name: Ensure nginx is at the latest version
+  apt: 
+    name: nginx
+    state: latest
+
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+
+- file:
+    path:  /var/www/
+    owner: "{{username}}"
+    state: directory
+    group: "root"
+    mode: 0755
+    recurse: yes
+
+# create a directory if it doesn't exist
+- file:
+    path: /var/www/html/monitoring
+    owner: "{{username}}"
+    state: directory
+    mode: 0755

@@ -1,0 +1,15 @@
+# Please se this for more details : https://gist.github.com/thomasfr/9691385
+- name: ""
+  include_tasks: "install-git.yml"
+
+- name: ""
+  include_tasks: "install-user.yml"
+
+- name: ""
+  include_tasks: "install-key.yml"
+
+- name: ""
+  include_tasks: "install-repo.yml"
+
+- name: ""
+  include_tasks: "install-web.yml"

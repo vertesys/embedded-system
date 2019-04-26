@@ -1,0 +1,7 @@
+Host {% for addressip in groups['raspberry'] %}{{ addressip }}
+{% endfor %}
+    HostName {% for addressip in groups['raspberry'] %}{{ addressip }}
+{% endfor %}
+    User git
+    IdentityFile {{ssh_private_key}}
+    IdentitiesOnly yes
