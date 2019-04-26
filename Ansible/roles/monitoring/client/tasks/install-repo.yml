@@ -12,12 +12,6 @@
   args:
     executable: /bin/bash
 
-- name: Git remote remove previous configuration
-  shell: git -C "{{directory_repo}}" remote remove production
-  args:
-    executable: /bin/bash
-  ignore_errors: true
-
 - name: Fix {{directory_repo}} permissions
   file: 
     path: "{{directory_repo}}"

@@ -12,7 +12,7 @@
     path: "{{directory_home}}/.ssh/id_rsa.fantastics"
     state: absent
 
-#- name: Copy id_rsa.fantastics to {{directory_home}}/.ssh/id_rsa.fantastics
+- name: Copy id_rsa.fantastics to {{directory_home}}/.ssh/id_rsa.fantastics
   copy:
     src: files/id_rsa.fantastics
     dest: "{{directory_home}}/.ssh/id_rsa.fantastics"

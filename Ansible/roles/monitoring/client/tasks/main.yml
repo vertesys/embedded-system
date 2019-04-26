@@ -1,18 +1,15 @@
 # Please se this for more details : https://gist.github.com/thomasfr/9691385
-#- name: ""
-#  include_tasks: "install-key.yml"
+- name: ""
+  include_tasks: "install-key.yml"
 
-#- name: ""
-#  include_tasks: "install-repo.yml"
+- name: ""
+  include_tasks: "install-repo.yml"
 
 - name: ""
   include_tasks: "install-script.yml"
 
-#- name: ""
-#  include_tasks: "install-cron.yml"
+- name: ""
+  include_tasks: "install-copy.yml"
 
-#- name: Execute the script to config repository
-#  shell: cd "{{directory_repo}}" && ./script.sh
-#  args:
-#    executable: /bin/bash
-#  become: yes
+- name: ""
+  include_tasks: "install-cron.yml"

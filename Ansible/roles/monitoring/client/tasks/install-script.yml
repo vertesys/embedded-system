@@ -2,8 +2,8 @@
 
 - name: Transfer the scripts to config git repository
   template: 
-    src: Configuration.sh.j2
-    dest: "{{directory_repo}}/Configuration.sh"
+    src: Configure.sh.j2
+    dest: "{{directory_repo}}/Configure.sh"
     owner: "{{username}}"
     group: "{{username}}"
     mode: 0777
@@ -23,3 +23,12 @@
     owner: "{{username}}"
     group: "{{username}}"
     mode: 0777
+
+- name: Fix {{directory_repo}} permissions
+  file: 
+    path: "{{directory_repo}}"
+    owner: "{{username}}"
+    group: "{{username}}" 
+    mode: 0775
+    state: directory
+    recurse: yes

@@ -19,3 +19,18 @@
   service:
     name: nginx
     state: started
+
+- file:
+    path:  /var/www/
+    owner: "{{username}}"
+    state: directory
+    group: "root"
+    mode: 0755
+    recurse: yes
+
+# create a directory if it doesn't exist
+- file:
+    path: /var/www/html/monitoring
+    owner: "{{username}}"
+    state: directory
+    mode: 0755

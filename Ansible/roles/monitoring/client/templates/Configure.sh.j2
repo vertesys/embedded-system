@@ -1,4 +1,6 @@
 #!/bin/bash
+ssh -o "StrictHostKeyChecking no" {% for addressip in groups['raspberry'] %}git@{{addressip}}
+{% endfor %}
 git config --local user.name "EMIL Ben Djadid"
 git config --local user.email "Emil.Ben.Djadid@Gmail.com"
 git remote remove production
