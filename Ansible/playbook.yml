@@ -11,17 +11,17 @@
     - role: "roles/robotcron"
 
 # Installer tmux et ajouter ma commande robot.
-#- name: "INSTALL TMUX & SETUP IT"
-#  hosts: "raspberry"
-#  roles:
-#    - role: "roles/robottmux"
-
-- name: "SETUP MONITORING ON SERVER"
-  hosts: "monitoring"
-  roles:
-    - role: "monitoring/server"
-
-- name: "SETUP MONITORING ON CLIENT"
+- name: "INSTALL TMUX & SETUP IT"
   hosts: "raspberry"
   roles:
-    - role: "monitoring/client"
+    - role: "roles/robottmux"
+
+#- name: "SETUP MONITORING ON SERVER"
+#  hosts: "monitoring"
+#  roles:
+#    - role: "monitoring/server"
+
+#- name: "SETUP MONITORING ON CLIENT"
+#  hosts: "raspberry"
+#  roles:
+#    - role: "monitoring/client"

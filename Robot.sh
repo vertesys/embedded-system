@@ -7,7 +7,7 @@ function oneinstance() {
     done
 } ; oneinstance
 function variables() {
-    directory="/home/pi/.robot/robot" ; script_py="main.py" ; 
+    directory="/home/pi/.fantastics/robot" ; script_py="main.py" ; 
     mkdir -p $directory > /dev/null 2>&1 ; chmod +x $directory/$script_py
     sha_1_robot_works=/home/pi/.robot/sha-1-robot-works ; touch $sha_1_robot_works
     sha_1_robot_error=/home/pi/.robot/sha-1-robot-error ; touch $sha_1_robot_error
