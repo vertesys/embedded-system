@@ -1,0 +1,15 @@
+# 3. Add your ssh public key to the authorized_keys file of the created user.
+- name: Create directory "{{directory_home}}/.ssh"
+  file:
+    path: "{{directory_home}}/.ssh"
+    state: directory
+    owner: "{{username}}"
+    group: "{{username}}"
+
+- name: Copy id_rsa.gitlab.pub to "~/.ssh/authorized_keys"
+  copy:
+    src: files/id_rsa.gitlab.pub 
+    dest: "{{directory_home}}/.ssh/authorized_keys"
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 400
