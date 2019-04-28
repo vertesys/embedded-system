@@ -75,8 +75,7 @@ function applyupdate() {
     git -C $directory fetch origin > /dev/null 2>&1
     git -C $directory add . ; git commit -m "Resolved merge conflict."
     git -C $directory pull > /dev/null 2>&1
-    git -C $directory merge -X theirs $branch
-    git -C $directory merge devops
+    git -C $directory merge $branch
 }
 ###########################################################################################
 function autoupdate() {
