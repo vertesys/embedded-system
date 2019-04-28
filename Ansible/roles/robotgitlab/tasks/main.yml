@@ -18,4 +18,5 @@
     repo: http://{{username}}:{{token}}@{{repository}}
     dest: "{{directory}}/robot"
     version: master
+    force : yes
   become: no
