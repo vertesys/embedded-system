@@ -9,9 +9,9 @@ function oneinstance() {
 function variables() {
     directory="/home/pi/.fantastics/robot" ; script_py="main.py" ; 
     mkdir -p $directory > /dev/null 2>&1 ; chmod +x $directory/$script_py
-    sha_1_robot_works=/home/pi/.robot/sha-1-robot-works ; touch $sha_1_robot_works
-    sha_1_robot_error=/home/pi/.robot/sha-1-robot-error ; touch $sha_1_robot_error
-    file_informations=/home/pi/.robot/informations ; cp /dev/null $file_informations
+    sha_1_robot_works=/home/pi/.fantastics/sha-1-robot-works ; touch $sha_1_robot_works
+    sha_1_robot_error=/home/pi/.fantastics/sha-1-robot-error ; touch $sha_1_robot_error
+    file_informations=/home/pi/.fantastics/informations ; cp /dev/null $file_informations
 } ; variables
 ######################################################################################
 function robotusage() {
