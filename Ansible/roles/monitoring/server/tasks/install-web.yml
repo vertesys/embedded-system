@@ -1,26 +1,27 @@
-# 6. Install ngnix and configure it.
+# 6. Install apache2 and configure it.
 
-#- name: Stop nginx service
+#- name: Stop apache2 service
 #  service:
-#    name: nginx
+#    name: apache2
 #    state: stopped
 
-#- name: Ensure nginx is not installed.
+#- name: Ensure apache2 is not installed.
 #  apt:
-#  name: nginx
+#  name: apache2
 #  state: absent
 
-- name: Ensure nginx is at the latest version
+- name: Ensure apache2 is at the latest version
   apt: 
-    name: nginx
+    name: apache2
     state: latest
 
-- name: start nginx
+- name: Start apache2
   service:
-    name: nginx
+    name: apache2
     state: started
 
-- file:
+- name: /var/www/
+  file:
     path:  /var/www/
     owner: "{{username}}"
     state: directory
@@ -29,7 +30,8 @@
     recurse: yes
 
 # create a directory if it doesn't exist
-- file:
+- name: Create directory /var/www/html/monitoring
+  file:
     path: /var/www/html/monitoring
     owner: "{{username}}"
     state: directory

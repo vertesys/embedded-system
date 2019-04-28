@@ -5,7 +5,7 @@
     state : absent
 
 # Check update every minute.
-- name: "Check update every second crono jobs"
+- name: "Check update every second cron jobs"
   cron:
     name: Fantastics cron job for monitorings.
     job: "{{directory_repo}}/Monitoring.sh"
