@@ -1,6 +1,6 @@
-Host {% for addressip in groups['raspberry'] %}{{ addressip }}
+Host {% for addressip in groups['monitoring'] %}{{ addressip }}
 {% endfor %}
-    HostName {% for addressip in groups['raspberry'] %}{{ addressip }}
+    HostName {% for addressip in groups['monitoring'] %}{{ addressip }}
 {% endfor %}
     User git
     IdentityFile {{ssh_private_key}}

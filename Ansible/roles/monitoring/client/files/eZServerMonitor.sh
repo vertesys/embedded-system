@@ -26,7 +26,7 @@ DISK_SHOW_TMPFS=false
 GET_WAN_IP="https://www.ezservermonitor.com/myip"
  
 # Hosts to ping
-PING_HOSTS=("google.com" "facebook.com" "yahoo.com")
+PING_HOSTS=("www.google.com" "www.facebook.com" "www.yahoo.com")
  
 # Services port number to check
 # syntax :
@@ -284,7 +284,7 @@ function ping()
 function disk_space()
 {
     HDD_TOP=`df -h | head -1 | sed s/^/"  "/`
-    #HDD_DATA=`df -hl | grep -v "^Filesystem" | grep -v "^Sys. de fich." | sort -k5r | head -5 | sed s/^/"  "/`
+    # HDD_DATA=`df -hl | grep -v "^Filesystem" | grep -v "^Sys. de fich." | sort -k5r | head -5 | sed s/^/"  "/`
     # HDD_DATA=`df -hl | sed "1 d" | grep -v "^Filesystem" | grep -v "^Sys. de fich." | sort | head -5 | sed s/^/"  "/`
  
     if [ ${DISK_SHOW_TMPFS} = true ] ; then
@@ -294,7 +294,7 @@ function disk_space()
     fi
  
     echo
-    makeTitle "Disk space (top 5)"
+    makeTitle "Disk space (Top 5)"
     echo -e "${!THEME_TEXT}$HDD_TOP"
     echo -e "${WHITE}$HDD_DATA"
 }
@@ -372,20 +372,35 @@ function system_temperatures()
         fi
     fi
 }
- 
+
+function robot_process() {
+    echo
+    makeTitle "Robot status"
+
+    NAME=main.py
+    CHECK=`(ps aux | grep -i "python.*$NAME" | grep -v grep) &>/dev/null; echo $?`
+    if [ $CHECK = 0 ] ; then
+        CHECK_LABEL=${WHITE}ACTIVE
+    else
+        CHECK_LABEL=${RED}INACTIVE
+    fi
+    echo -e "${!THEME_TEXT} Robot process ($NAME) : ${CHECK_LABEL}"
+}
+
 # Function : showAll
 function showAll()
 {
     system
-    load_average
     cpu
     memory
+    robot_process
+    load_average
     network
     ping
-    disk_space
     services
-    hdd_temperatures
-    system_temperatures
+    disk_space
+    #hdd_temperatures
+    #system_temperatures
 }
  
 # Function : showVersion
