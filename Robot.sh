@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 ##########################################################################################
 function oneinstance() {
     pids=$(ps aux | grep -i bash.*$(basename "$0") | grep -v grep | awk '{print $2}')
