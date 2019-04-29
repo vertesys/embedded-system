@@ -42,7 +42,7 @@
     path: "{{item}}"
     state: absent
   with_items:
-    - "{{directory}}/*"
+    - "{{directory_repo}}/*"
 
 #- name: ""
 #  include_tasks: "install-repo.yml"
