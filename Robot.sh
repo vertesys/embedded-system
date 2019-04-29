@@ -71,11 +71,7 @@ function applyupdate() {
     git -C $directory branch --set-upstream-to=origin/master master > /dev/null 2>&1
     git -C $directory config user.name "Robot" 
     git -C $directory config user.email "robot@fantastics.local"
-    git -C $directory checkout master > /dev/null 2>&1
-    git -C $directory fetch origin > /dev/null 2>&1
-    git -C $directory add . ; git commit -m "Resolved merge conflict."
     git -C $directory pull > /dev/null 2>&1
-    git -C $directory merge $branch
 }
 ###########################################################################################
 function autoupdate() {
