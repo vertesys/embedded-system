@@ -1,0 +1,10 @@
+# Copy multiple file into web repertory.
+- name: Copy multiple file (web files)
+  copy: 
+    src: "files/{{ item }}"
+    dest: "{{directory_repo}}"
+  with_items:
+    - bootstrap.min.css
+    - jquery.min.js
+    - Convert.sh
+    - favicon.ico
