@@ -10,4 +10,4 @@
     name: Fantastics cron job for monitorings.
     job: "{{directory_repo}}/Monitoring.sh"
     state: present
-    user: "pi"
+    user: pi

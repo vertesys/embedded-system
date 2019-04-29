@@ -34,14 +34,17 @@ EOLINE
         file=$(echo $file | sed 's/\[37;40m/<\/td><td>/g') 
 
         file=$(echo $file | sed 's/\[31;40mOFFLINE/<\/td><td>OFFLINE<\/td>/g') 
+        file=$(echo $file | sed 's/\[31;40mINACTIVE/<\/td><td>INACTIVE<\/td>/g') 
 
         file=$(echo $file | sed 's/<table>/<table class="table table-sm table-bordered">/g')
-        file=$(echo $file | sed 's/<\/table>/<\/table>/g')
+        file=$(echo $file | sed 's/<\/table>/<\/td><\/tr><\/table>/g')
 
         file=$(echo $file | sed 's/<th>/<th class="bg-dark text-white">/g')
 
         file=$(echo $file | tr -s ' ')
         echo $file >> /home/pi/.fantastics/monitoring/index.html
+        echo "</table>" >> /home/pi/.fantastics/monitoring/index.html
+        sed -i 's/\x1b//g' /home/pi/.fantastics/monitoring/index.html
 ## FOOTER ##############################################################################################
 cat <<EOL >> /home/pi/.fantastics/monitoring/index.html
             <div class="row">
@@ -63,26 +66,33 @@ cat <<EOL >> /home/pi/.fantastics/monitoring/index.html
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 col-lg-12 tableau-7">
+                <div class="col-sm-6 col-lg-6 tableau-7">
+                </div>
+                <div class="col-sm-6 col-lg-6 tableau-8">
                 </div>
             </div>
-             <div class="row">
-                <div class="col-sm-6 col-lg-6 tableau-8">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 tableau-9">
                 </div>
             </div>
         </main>
         <script>
-        var nombre = 1
-        \$("table").each(function(){
-            var table = \$(this);
-            var title = \$(this).find("th").text();
-            title = title.substring(2, title.length);
-            var header = \$(this).find("th").attr('colspan',2).text(title);
-            \$(this).appendTo(\$(".tableau-" + nombre))
-            nombre = nombre + 1
+        \$(document).ready(function() {
+            var nombre = 1
+            \$("table").each(function(){
+                var table = \$(this);
+                var title = \$(this).find("th").text();
+                title = title.substring(2, title.length);
+                var header = \$(this).find("th").attr('colspan',2).text(title);
+                if (\$(".tableau-" + nombre).length) {
+                    \$(this).appendTo(\$(".tableau-" + nombre))
+                }
+                nombre = nombre + 1
+            });
         });
         </script>
     </body>
 </html>
 EOL
+
 #######################################################################################################
