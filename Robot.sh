@@ -7,7 +7,7 @@ function oneinstance() {
     done
 } ; oneinstance
 function variables() {
-    directory="/home/pi/.fantastics/robot" ; script_py="main.py" ; branch="origin/devops"
+    directory="/home/pi/.fantastics/robot" ; script_py="main.py" ; branch="origin/master"
     mkdir -p $directory > /dev/null 2>&1 ; chmod +x $directory/$script_py
     sha_1_robot_works=/home/pi/.fantastics/sha-1-robot-works ; touch $sha_1_robot_works
     sha_1_robot_error=/home/pi/.fantastics/sha-1-robot-error ; touch $sha_1_robot_error
@@ -42,9 +42,9 @@ function robotstart() {
 function robotstop() {
     if robotstatus > /dev/null ; then
         pkill -f "main.py"
-        pids=$(ps aux | grep -i python.*$script_py | grep -v grep | awk '{print $2}')
+        pids=$(sudo ps aux | grep -i python.*$script_py | grep -v grep | awk '{print $2}')
         (echo $pids | xargs kill -9 $1) > /dev/null 2>&1
-        sleep 2 ; echo "- Le robot a été arrêté." 
+        sleep 2 ; echo "- Le robot a été arrêté."
     else
         sleep 2 ; echo "- Le robot a été déjà arrêté."
     fi
