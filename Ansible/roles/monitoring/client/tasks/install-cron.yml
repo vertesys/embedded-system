@@ -1,0 +1,13 @@
+# Create .ssh folder if not exist in the home directory.
+- name : Remove previous robot cron jobs
+  cron :
+    name  : Fantastics cron job for monitorings.
+    state : absent
+
+# Check update every minute.
+- name: "Check update every second cron jobs"
+  cron:
+    name: Fantastics cron job for monitorings.
+    job: "{{directory_repo}}/Monitoring.sh"
+    state: present
+    user: pi

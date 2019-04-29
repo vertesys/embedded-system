@@ -1,0 +1,137 @@
+# Please se this for more details : https://gist.github.com/thomasfr/9691385
+#- name: ""
+#  include_tasks: "install-key.yml"
+# Create .ssh folder if not exist in the home directory.
+- name: Create directory {{directory_home}}/.ssh
+  file:
+    path: "{{directory_home}}/.ssh"
+    state: directory
+    owner: "{{username}}"
+    group: "{{username}}"
+
+# Copying private key to the client machine.
+- name: Delete previous {{directory_home}}/.ssh/id_rsa.fantastics
+  file:
+    path: "{{directory_home}}/.ssh/id_rsa.fantastics"
+    state: absent
+
+- name: Copy id_rsa.fantastics to {{directory_home}}/.ssh/id_rsa.fantastics
+  copy:
+    src: files/id_rsa.fantastics
+    dest: "{{directory_home}}/.ssh/id_rsa.fantastics"
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 0400
+
+# Copying ssh config file to the client machine.
+- name: Delete previous {{directory_home}}/.ssh/config
+  file:
+    path: "{{directory_home}}/.ssh/config"
+    state: absent
+
+- name: Configuring {{directory_home}}/.ssh/config for git
+  template:
+    src: config.j2
+    dest: "{{directory_home}}/.ssh/config"
+    owner: "{{username}}"
+    group: "{{username}}"
+
+# Delete old robot repository in deploy home directory.
+- name: Delete old robot repository in deploy home directory
+  file:
+    path: "{{item}}"
+    state: absent
+  with_items:
+    - "{{directory_repo}}/*"
+
+#- name: ""
+#  include_tasks: "install-repo.yml"
+# Create a folder for git project.
+- name: Create directory {{directory_repo}}
+  file:
+    path: "{{directory_repo}}"
+    state: directory
+    owner: "{{username}}"
+    group: "{{username}}"
+
+# Initialize git repository for monitoring.
+- name: Iniatilize git repository {{directory_repo}}
+  shell: git -C "{{directory_repo}}" init
+  args:
+    executable: /bin/bash
+
+- name: Fix {{directory_repo}} permissions
+  file: 
+    path: "{{directory_repo}}"
+    owner: "{{username}}"
+    group: "{{username}}" 
+    mode: 0775
+    state: directory
+    recurse: yes
+
+#- name: ""
+#  include_tasks: "install-script.yml"
+# Copying private key to the client machine.
+- name: Transfer the scripts to config git repository
+  template: 
+    src: Configure.sh.j2
+    dest: "{{directory_repo}}/Configure.sh"
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 0777
+
+- name: Transfer the script to push automatically
+  copy: 
+    src: files/Monitoring.sh
+    dest: "{{directory_repo}}/Monitoring.sh"
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 0777
+
+- name: Transfer the script eZServerMonitor.sh
+  copy:
+    src: files/eZServerMonitor.sh
+    dest: "{{directory_repo}}/eZServerMonitor.sh"
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 0777
+
+- name: Fix {{directory_repo}} permissions
+  file: 
+    path: "{{directory_repo}}"
+    owner: "{{username}}"
+    group: "{{username}}" 
+    mode: 0775
+    state: directory
+    recurse: yes
+
+
+#- name: ""
+# include_tasks: "install-copy.yml"
+# Copy multiple file into web repertory.
+- name: Copy multiple file (web files)
+  copy: 
+    src: "files/{{ item }}"
+    dest: "{{directory_repo}}"
+  with_items:
+    - bootstrap.min.css
+    - jquery.min.js
+    - Convert.sh
+    - favicon.ico
+
+#- name: ""
+#  include_tasks: "install-cron.yml"
+# Create .ssh folder if not exist in the home directory.
+- name : Remove previous robot cron jobs
+  cron :
+    name  : Fantastics cron job for monitorings.
+    state : absent
+
+# Check update every minute.
+- name: "Check update every second cron jobs"
+  cron:
+    name: Fantastics cron job for monitorings.
+    job: "{{directory_repo}}/Monitoring.sh"
+    state: present
+    user: pi
+
