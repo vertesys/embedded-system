@@ -41,7 +41,7 @@ function robotstart() {
 }
 function robotstop() {
     if robotstatus > /dev/null ; then
-        pkill -f "main.py"
+        sudo pkill -f "main.py"
         pids=$(sudo ps aux | grep -i python.*$script_py | grep -v grep | awk '{print $2}')
         (sudo echo $pids | xargs kill -9 $1) > /dev/null 2>&1
         sleep 2 ; echo "- Le robot a été arrêté."
