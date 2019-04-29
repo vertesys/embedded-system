@@ -24,7 +24,7 @@ while True:
 
     elif state == '1':
         if ecran == 1:
-            afecran.text('Nous sommes fantastics.')
+            afecran.text('Je suis papa.')
             # afecran.image('cat.jpg')
             ecran = 0
 
