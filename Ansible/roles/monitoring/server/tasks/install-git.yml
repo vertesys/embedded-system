@@ -1,5 +1,0 @@
-# 1. Install git package to the latest version.
-- name: Install git package to the latest version
-  apt:
-    name: git
-    state: present

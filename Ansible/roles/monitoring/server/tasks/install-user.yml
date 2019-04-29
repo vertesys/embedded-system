@@ -1,9 +1,0 @@
-# 2. It is not possible to interactively login as this user.
-- name: Create a user call git on the server
-  user:
-    name: "{{username}}"
-    groups:
-    state: present
-    shell: /usr/bin/git-shell
-    createhome: yes
-    home: "/home/{{username}}"
