@@ -28,7 +28,7 @@ while True:
             afecran.text('fantastics...')
             # afecran.image('cat.jpg')
             ecran = 0
-            rmot.tmoteur(90)
+            # rmot.tmoteur(90)
         va = []
 
         if objetDistance.distance() < 35:
