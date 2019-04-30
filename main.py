@@ -24,7 +24,7 @@ while True:
 
     elif state == '1':
         if ecran == 1:
-            afecran.text('Je suis fantastics...')
+            afecran.text('Je suis fantastics... virtus')
             # afecran.image('cat.jpg')
             ecran = 0
 
@@ -60,4 +60,28 @@ while True:
                 conteur = 0
                 sleep(1)
             else:
-                mov.avancer()
+                # mov.avancer()
+                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                sleep(2)
+                mov.Ravancer(False, True, False, True, 0, 0.8)
+                sleep(2)
+                mov.Ravancer(False, True, True, False, 0.8, 0.8)
+                sleep(2)
+                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                sleep(4)
+                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                sleep(2)
+                mov.Ravancer(False, True, True, False, 0.8,0.8)
+                sleep(2)
+                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                sleep(2)
+                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                sleep(3)
+                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                sleep(3)
+                sleep(3)
+                mov.Ravancer(False, True, True, False, 0.8, 0.8)
+                sleep(3)
+
+
+
