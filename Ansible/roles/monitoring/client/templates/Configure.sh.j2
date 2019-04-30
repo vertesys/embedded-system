@@ -1,5 +1,5 @@
-#!/bin/bash
-ssh -o "StrictHostKeyChecking no" {% for addressip in groups['monitoring'] %}git@{{addressip}}
+#!/bin/sh
+#ssh -o "StrictHostKeyChecking no" {% for addressip in groups['monitoring'] %}git@{{addressip}}
 {% endfor %}
 git config --local user.name "EMIL Ben Djadid"
 git config --local user.email "Emil.Ben.Djadid@Gmail.com"
