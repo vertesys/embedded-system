@@ -25,7 +25,7 @@ while True:
 
     elif state == '1':
         if ecran == 1:
-            afecran.text('fantastics...')
+            afecran.text('fantastics... ici')
             # afecran.image('cat.jpg')
             ecran = 0
             # rmot.tmoteur(90)
