@@ -36,4 +36,4 @@ class Tmoteur():
         DutyCycle = 1 / 18 * (rotation) + 2
         self.pwm.ChangeDutyCycle(DutyCycle)
         time.sleep(0.5)
-        GPIO.cleanup()
+        # GPIO.cleanup()
