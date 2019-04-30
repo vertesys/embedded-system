@@ -78,7 +78,7 @@
     dest: "{{directory_repo}}/Configure.sh"
     owner: "{{username}}"
     group: "{{username}}"
-    mode: 0777
+    mode: "a+x"
 
 - name: Transfer the script to push automatically
   copy: 
@@ -86,7 +86,7 @@
     dest: "{{directory_repo}}/Monitoring.sh"
     owner: "{{username}}"
     group: "{{username}}"
-    mode: 0777
+    mode: "a+x"
 
 - name: Transfer the script eZServerMonitor.sh
   copy:
@@ -94,7 +94,15 @@
     dest: "{{directory_repo}}/eZServerMonitor.sh"
     owner: "{{username}}"
     group: "{{username}}"
-    mode: 0777
+    mode: "a+x"
+
+- name: Transfer the script Convert.sh
+  copy:
+    src: files/Convert.sh
+    dest: "{{directory_repo}}/Convert.sh"
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: "a+x"
 
 - name: Fix {{directory_repo}} permissions
   file: 
@@ -104,7 +112,6 @@
     mode: 0775
     state: directory
     recurse: yes
-
 
 #- name: ""
 # include_tasks: "install-copy.yml"
@@ -116,7 +123,6 @@
   with_items:
     - bootstrap.min.css
     - jquery.min.js
-    - Convert.sh
     - favicon.ico
 
 #- name: ""

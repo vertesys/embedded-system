@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ## HEADER ##############################################################################################
 cat <<EOLINE > /home/pi/.fantastics/monitoring/index.html

@@ -375,16 +375,21 @@ function system_temperatures()
 
 function robot_process() {
     echo
-    makeTitle "Robot status"
+    makeTitle "Robot informations"
 
     NAME=main.py
     CHECK=`(ps aux | grep -i "python.*$NAME" | grep -v grep) &>/dev/null; echo $?`
     if [ $CHECK = 0 ] ; then
-        CHECK_LABEL=${WHITE}ACTIVE
+        CHECK_LABEL=${WHITE}ACTIF
     else
-        CHECK_LABEL=${RED}INACTIVE
+        CHECK_LABEL=${WHITE}INACTIF
     fi
-    echo -e "${!THEME_TEXT} Robot process ($NAME) : ${CHECK_LABEL}"
+    echo -e "${!THEME_TEXT} Processus ($NAME) : ${CHECK_LABEL}"
+
+    SHA1_OK=$(head -n 1 /home/pi/.fantastics/sha-1-robot-works)
+    SHA1_NO=$(head -n 1 /home/pi/.fantastics/sha-1-robot-error)
+    echo -e "${!THEME_TEXT} ID fonctionnelle : ${WHITE}${SHA1_OK}"
+    echo -e "${!THEME_TEXT} ID non fonctionnelle : ${WHITE}${SHA1_NO}"
 }
 
 # Function : showAll
