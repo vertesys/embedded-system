@@ -1,0 +1,22 @@
+# Clone le dépôt du robot dans le dépertoire de pi.
+- name: "CLONE ROBOT REPOSITORY"
+  hosts: "raspberry"
+  roles:
+    - role: "roles/robotgitlab"
+
+# Start the robot every minute by adding a cron job.
+- name: "ADD CRON JOB TO START ROBOT"
+  hosts: "raspberry"
+  roles:
+    - role: "roles/robotcron"
+
+#- name: "SETUP MONITORING ON SERVER"
+#  hosts: "monitoring"
+#  roles:
+#    - role: "monitoring/server"
+
+- name: "SETUP MONITORING ON CLIENT"
+  hosts: "raspberry"
+  roles:
+    - role: "monitoring/client"
+

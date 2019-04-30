@@ -7,7 +7,7 @@ import codecs
 
 PORT_SERIE = "/dev/ttyAMA0"
 
-# Initialisation du port série
+# Initialisation du port sÃ©rie
 ser = serial.Serial(
     port = PORT_SERIE,
     baudrate = 9600,
@@ -23,16 +23,16 @@ def signal_handler(signal, frame):
         sys.exit(0)
 
 
-# Lire le fichier de données Hexa
+# Lire le fichier de donnÃ©es Hexa
 with open("data", "rb") as f:
     # Lire le premier octet
     byte = f.read(1)
-    # Boucler tant qu'on n'est pas à la fin du fichier
+    # Boucler tant qu'on n'est pas Ã  la fin du fichier
     while byte != b"":
-        # Lecture de l'octet suivant + éventuelle modif
+        # Lecture de l'octet suivant + Ã©ventuelle modif
         byte = f.read(1)
         print (byte)
-        # Envoyer sur le port série
+        # Envoyer sur le port sÃ©rie
         ser.write(byte)
 
 
