@@ -10,9 +10,9 @@ import RPi.GPIO as GPIO
 #declarer pin11 comme pin du signal
 
 
-pwm=GPIO.PWM(17,50)
+# pwm=GPIO.PWM(17,50)
 # initialiser l'objet PWM avec un duty cycle de 2.5% (angle 0Â°)
-pwm.start(2.5)
+# pwm.start(2.5)
 #while True :
 
     #changer l'angle (0 Ã  90Â°) en modifiant le duty cycle Ã  12.5%
