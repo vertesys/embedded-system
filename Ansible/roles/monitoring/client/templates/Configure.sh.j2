@@ -1,10 +1,11 @@
 #!/bin/sh
-#ssh -o "StrictHostKeyChecking no" {% for addressip in groups['monitoring'] %}git@{{addressip}}
+ssh -o "StrictHostKeyChecking no" {% for addressip in groups['monitoring'] %}git@{{addressip}}
 {% endfor %}
-git config --local user.name "EMIL Ben Djadid"
-git config --local user.email "Emil.Ben.Djadid@Gmail.com"
-git remote remove production
-git remote add production {% for addressip in groups['monitoring'] %}git@{{addressip}}:~/Monitoring
+git -C /home/pi/.fantastics/monitoring config --local user.name "EMIL Ben Djadid"
+git -C /home/pi/.fantastics/monitoring config --local user.email "Emil.Ben.Djadid@Gmail.com"
+git -C /home/pi/.fantastics/monitoring remote remove production
+git -C /home/pi/.fantastics/monitoring remote add production {% for addressip in groups['monitoring'] %}git@{{addressip}}:~/Monitoring
 {% endfor %}
-git add . && git commit -am "Update repository"
-git push --force production master
+git -C /home/pi/.fantastics/monitoring add .
+git -C /home/pi/.fantastics/monitoring commit -am "Update repository"
+git -C /home/pi/.fantastics/monitoring push --force production master
