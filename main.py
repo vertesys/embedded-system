@@ -25,7 +25,7 @@ while True:
 
     elif state == '1':
         if ecran == 1:
-            afecran.text('Je suis fantastics... neutrino')
+            afecran.text('Je suis fantastics... coucou')
             # afecran.image('cat.jpg')
             ecran = 0
             rmot.tmoteur(90)
@@ -63,7 +63,7 @@ while True:
                 sleep(1)
             else:
                 # mov.avancer()
-                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                mov.Ravancer(True, False, True, False, 0.8, 0.8)
                 sleep(2)
                 mov.Ravancer(True, False, False, True, 0.8, 0.8)
                 sleep(2)
@@ -71,7 +71,7 @@ while True:
                 sleep(4)
                 mov.Ravancer(True, False, False, True, 0.8, 0.8)
                 sleep(2)
-                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                mov.Ravancer(True, False, True, False, 0.8, 0.8)
                 sleep(1)
 
                 mov.Ravancer(True, False, False, True, 0.8, 0.8)
@@ -82,13 +82,12 @@ while True:
 
                 mov.Ravancer(False, True, True, False, 0.8,0.8)
                 sleep(2)
-                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                mov.Ravancer(True, False, True, False, 0.8, 0.8)
                 sleep(2)
                 mov.Ravancer(False, True, False, True, 0.8, 0.8)
-                sleep(3)
-                mov.Ravancer(False, True, False, True, 0.8, 0.8)
-                sleep(3)
-                sleep(3)
+                sleep(2)
+                mov.Ravancer(True, False, True, False, 0.8, 0.8)
+                sleep(2)
                 mov.Ravancer(False, True, True, False, 0.8, 0.8)
                 sleep(3)
 
