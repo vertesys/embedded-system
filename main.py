@@ -3,10 +3,10 @@ import ModuleMouvement as mouv
 import ModuleDistance as dis
 import ModulePresence as pres
 import ModuleEcran as ecran
-import ModuleTeteM as rmoteur
+# import ModuleTeteM as rmoteur
 
 from time import sleep
-rmot =rmoteur.Tmoteur()
+# rmot =rmoteur.Tmoteur()
 afecran = ecran.Ecran()
 mov = mouv.Mouvements()
 objetDistance = dis.Distance()
