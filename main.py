@@ -3,9 +3,10 @@ import ModuleMouvement as mouv
 import ModuleDistance as dis
 import ModulePresence as pres
 import ModuleEcran as ecran
+import ModuleTeteM as rmoteur
 
 from time import sleep
-
+rmot =rmoteur.Tmoteur()
 afecran = ecran.Ecran()
 mov = mouv.Mouvements()
 objetDistance = dis.Distance()
@@ -27,6 +28,7 @@ while True:
             afecran.text('Je suis fantastics... virtus')
             # afecran.image('cat.jpg')
             ecran = 0
+            rmot.tmoteur(90)
 
         va = []
 
@@ -63,14 +65,19 @@ while True:
                 # mov.avancer()
                 mov.Ravancer(False, True, False, True, 0.8, 0.8)
                 sleep(2)
-                mov.Ravancer(False, True, False, True, 0, 0.8)
+                mov.Ravancer(True, False, False, True, 0.8, 0.8)
                 sleep(2)
                 mov.Ravancer(False, True, True, False, 0.8, 0.8)
-                sleep(2)
-                mov.Ravancer(False, True, False, True, 0.8, 0.8)
                 sleep(4)
-                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                mov.Ravancer(True, False, False, True, 0.8, 0.8)
                 sleep(2)
+                mov.Ravancer(False, True, False, True, 0.8, 0.8)
+                sleep(1)
+
+                mov.Ravancer(True, False, False, True, 0.8, 0.8)
+                sleep(4)
+
+
                 mov.Ravancer(False, True, True, False, 0.8,0.8)
                 sleep(2)
                 mov.Ravancer(False, True, False, True, 0.8, 0.8)
