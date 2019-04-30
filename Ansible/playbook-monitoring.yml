@@ -1,0 +1,10 @@
+#- name: "SETUP MONITORING ON SERVER"
+#  hosts: "monitoring"
+#  roles:
+#    - role: "monitoring/server"
+
+- name: "SETUP MONITORING ON CLIENT"
+  hosts: "raspberry"
+  roles:
+    - role: "monitoring/client"
+
