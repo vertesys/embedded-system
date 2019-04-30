@@ -1,6 +1,11 @@
 #!/bin/sh
 ssh -o "StrictHostKeyChecking no" {% for addressip in groups['monitoring'] %}git@{{addressip}}
 {% endfor %}
+git -C /home/pi/.fantastics/monitoring gc
+git -C /home/pi/.fantastics/monitoring fsck --full
+git -C /home/pi/.fantastics/monitoring reflog expire --expire=0 --all
+git -C /home/pi/.fantastics/monitoring gc --aggressive
+git -C /home/pi/.fantastics/monitoring remote update --prune
 git -C /home/pi/.fantastics/monitoring config --local user.name "EMIL Ben Djadid"
 git -C /home/pi/.fantastics/monitoring config --local user.email "Emil.Ben.Djadid@Gmail.com"
 git -C /home/pi/.fantastics/monitoring remote remove production
